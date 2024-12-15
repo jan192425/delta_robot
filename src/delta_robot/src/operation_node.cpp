@@ -24,12 +24,27 @@ class opmod : public rclcpp:Node
     public:
     opmod() : Node("OPMOD")
     {
+    RCLCPP_INFO(this->get_logger(), "Run COMMOT node");
+
+        //Set rclpp Qualtiy of Servie parameters: depth, reliable mode and durabiltiy to volatile(=no storage)
+    this->declare_parameter("qos_depth", 10);
+    int8_t qos_depth = 0;
+    this->get_parameter("qos_depth", qos_depth);
+    const auto QOS_RKL10V =
+        rclcpp::QoS(rclcpp::KeepLast(qos_depth)).reliable().durability_volatile();
+
+    _pubGoalPosMotor= this -> create_publisher<SetPosition>("set_position",QOS_RKL10V);
         
+        
+        std::bind(&opmod::callbackPOINTNAV,this,_1))
 
 
     }
 
     private:
+
+
+    rclcpp::Publisher<SetPosition>::SharedPtr _pubGoalPosMotor;
 
 }
 

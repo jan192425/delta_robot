@@ -83,7 +83,7 @@ int fwdkin (float theta1, float theta2, float theta3) {
 
 
 //helper function for calculating the motorangles theta (by reference)
-int delta_calcAngleYZ(float xeff, float yeff, float zeff, float &theta) {
+int delta_calcAngleYZ(float xeff, float yeff, float zeff, float &theta) {  //!cal-by-reference raus und retruns deemtsprechend anpassen
      float y1 = -0.5* tan30*f;  // get coords of motorshaft1 which lies in the yz-plane
      xeff -= 0.5*tan30*e;         // shift effector center to edge perpendicular to yz-plane
 
@@ -102,7 +102,7 @@ int delta_calcAngleYZ(float xeff, float yeff, float zeff, float &theta) {
  }
 
 //?------inverse kinematics-------
-//? input the current endeffector position (poseff) and return current angles theta of the motors 1,2,3 
+//? input the goal endeffector position (poseff) and return goal angles theta of the motors 1,2,3 
 int invkin (float xeff, float yeff, float zeff, float &theta1, float &theta2, float &theta3){
      theta1 = theta2 = theta3 = 0;
      int status = delta_calcAngleYZ(xeff, yeff, zeff, theta1);

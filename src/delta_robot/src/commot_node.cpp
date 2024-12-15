@@ -7,16 +7,13 @@
 #include <string>
 #include <cstdio>
 
-#include "rclcpp/rclcpp.hpp"
-#include "std_msgs/msg/string.hpp"
-
 #include "dynamixel_sdk/dynamixel_sdk.h"
 #include "dynamixel_sdk_custom_interfaces/msg/set_position.hpp"
 #include "dynamixel_sdk_custom_interfaces/srv/get_position.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "rcutils/cmdline_parser.h"
 
-#include "include/commot_node.hpp"
+#include "../include/commot_node.hpp"
 
 
 // Control table address for X series (except XL-320)
@@ -41,7 +38,6 @@ int dxl_comm_result = COMM_TX_FAIL;
 
 commot::commot(): Node("COMMOT")
 {
-  public:
     //Test if Node is active
     RCLCPP_INFO(this->get_logger(), "Run COMMOT node");
 
@@ -122,12 +118,10 @@ commot::commot(): Node("COMMOT")
     //create a service sever for the defined lambda function
     get_position_server_ = create_service<GetPosition>("get_position", get_present_position);
     
+    /*
     //?publisher for of the current motor position to OPMOD Node
     pospub = this->create_publisher<pub TYP>("topicname", queue size)
-
-  private:
-    rclpp::Publisher<pub Typ>::SharedPtr pospub;
-
+    */
 }
 
 commot::~commot()
@@ -154,7 +148,7 @@ void setupDynamixel(uint8_t dxl_id)
   // Enable Torque of DYNAMIXEL
   dxl_comm_result = packetHandler->write1ByteTxRx(  
     portHandler,
-    dxl_id,dynamixelSDK
+    dxl_id,
     ADDR_TORQUE_ENABLE,
     1,
     &dxl_error
@@ -194,8 +188,8 @@ int main(int argc, char * argv[])
 
   rclcpp::init(argc, argv);
 
-  auto commot = std::make_shared<COMMOT>();
-  rclcpp::spin(COMMOT);
+  auto commot_start = std::make_shared<commot>();
+  rclcpp::spin(commot_start );
   rclcpp::shutdown();
 
   // Disable Torque of DYNAMIXEL

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(delta_robot)
+project(delta_robot_interfaces)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -9,14 +9,7 @@ endif()
 find_package(ament_cmake REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
-find_package(rclcpp REQUIRED)
-find_package(dynamixel_sdk REQUIRED)
-find_package(dynamixel_sdk_custom_interfaces REQUIRED)
-
-#executables
-add_executable(commot_node src/commot_node.cpp include/commot_node.hpp )
-ament_target_dependencies(commot_node rclcpp dynamixel_sdk dynamixel_sdk_custom_interfaces)
-
+# find_package(<dependency> REQUIRED)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
