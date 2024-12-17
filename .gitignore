@@ -2,4 +2,6 @@
 /install/
 /log/
 src/DynamixelSDK/
+src/dynamixel-workbench/
+src/dynamixel-workbench-msgs/
 

@@ -12,10 +12,30 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(dynamixel_sdk REQUIRED)
 find_package(dynamixel_sdk_custom_interfaces REQUIRED)
+find_package(delta_robot_interfaces REQUIRED)
 
 #executables
-add_executable(commot_node src/commot_node.cpp include/commot_node.hpp )
+add_executable(commot_node src/commot_node.cpp)
 ament_target_dependencies(commot_node rclcpp dynamixel_sdk dynamixel_sdk_custom_interfaces)
+
+add_executable(opmod_node src/opmod_node.cpp src/kinematics.cpp)
+ament_target_dependencies(opmod_node delta_robot_interfaces rclcpp dynamixel_sdk dynamixel_sdk_custom_interfaces)
+
+# Install targets
+install(TARGETS commot_node opmod_node
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+# Install header files (falls nötig)
+install(DIRECTORY include/
+  DESTINATION include
+)
+
+target_include_directories(opmod_node
+  PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>
+)
 
 
 if(BUILD_TESTING)

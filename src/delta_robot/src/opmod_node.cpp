@@ -27,8 +27,8 @@ class opmod : public rclcpp::Node
     public:
     opmod() : Node("OPMOD")
     {
-    RCLCPP_INFO(this->get_logger(), "Run COMMOT node");
-
+    RCLCPP_INFO(this->get_logger(), "Run OPMOD node");
+    auto logger = this->get_logger();
         //Set rclpp Qualtiy of Servie parameters: depth, reliable mode and durabiltiy to volatile(=no storage)
     this->declare_parameter("qos_depth", 10);
     int8_t qos_depth = 0;
@@ -45,13 +45,17 @@ class opmod : public rclcpp::Node
 
     private:
         void callbackPOINTNAV (const delta_robot_interfaces::msg::GoalPosEffector msg){
+            //Definition of logger output
+            RCLCPP_INFO(this->get_logger(), "Recieved Goal Position [xeff: %f] [yeff: %f] [zeff: %f]", msg.xeff, msg.yeff, msg.zeff);
             
             float xeffmsg = msg.xeff;
             float yeffmsg = msg.yeff;
             float zeffmsg = msg.zeff;
 
-            int (&invkinout)[3][2] = invkin(xeffmsg,yeffmsg, zeffmsg);
+            
 
+            int (&invkinout)[3][2] = invkin(xeffmsg,yeffmsg, zeffmsg);
+             RCLCPP_INFO(this->get_logger(), "Calculated Motor Positions [xeff: %d] [yeff: %d] [zeff: %d]", invkinout [0][1], invkinout [1][1], invkinout [2][1]);
             out1.id         =invkinout [0][0];
             out1.position   =invkinout [0][1];
             out2.id         =invkinout [1][0];
@@ -63,6 +67,8 @@ class opmod : public rclcpp::Node
             _pubGoalPosMotor -> publish(out1);
             _pubGoalPosMotor -> publish(out2);
             _pubGoalPosMotor -> publish(out3);
+
+            RCLCPP_INFO(this->get_logger(), "Calculated Motor Positions [ID: %d] [Position: %d] [ID: %d] [Position: %d] [ID: %d] [Position: %d]", out1.id , out1.position , out2.id, out2.position, out3.id, out3.position);
         
         }
 
@@ -81,6 +87,7 @@ class opmod : public rclcpp::Node
 
 int main (int argc, char *argv[])
 {
+    /**/
     rclcpp::init(argc, argv);
     auto opmod_start = std::make_shared<opmod>();
     rclcpp::spin(opmod_start);

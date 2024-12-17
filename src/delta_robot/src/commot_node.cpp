@@ -189,7 +189,7 @@ int main(int argc, char * argv[])
   rclcpp::init(argc, argv);
 
   auto commot_start = std::make_shared<commot>();
-  rclcpp::spin(commot_start );
+  rclcpp::spin(commot_start);
   rclcpp::shutdown();
 
   // Disable Torque of DYNAMIXEL

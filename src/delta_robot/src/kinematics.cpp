@@ -1,5 +1,6 @@
 #include <iostream>
 #include <math.h>
+#include <array>
 //? based on: https://hypertriangle.com/~alex/delta-robot-tutorial/  
 
 #define PI  3.14159265
@@ -11,6 +12,7 @@
 #define tan30  0.57735027
 #define tan60  1.7320508
 
+using namespace std;
 
 //! Radii must be set according to the position of the intersection of the arm's symmetry axis
 //! with the axis of either the motorshaft or the endeffector joint shaft !!!!!!!!!!!!!!!!!!!!!!
@@ -22,7 +24,7 @@ float f = 2*rf*tan60;  //length of triangle side of base
 float le = 300; //effector arm ("forearm") lenght in mm
 float lf = 200; //base arm ("biceps") lenght in mm
 
-
+int invout [3][2] = {{1,5},{2,5},{3,5}};
 
 //?------forward kinematics-------
 //? input the current angles theta of the motors 1,2,3 and return the current position of the endeffector (poseff)
@@ -83,30 +85,47 @@ int fwdkin (float theta1, float theta2, float theta3) {
 
 
 //helper function for calculating the motorangles theta (by reference)
-int delta_calcAngleYZ(float xeff, float yeff, float zeff, float &theta) {  //!cal-by-reference raus und retruns deemtsprechend anpassen
+float delta_calcAngleYZ(float xeff, float yeff, float zeff) {  
      float y1 = -0.5* tan30*f;  // get coords of motorshaft1 which lies in the yz-plane
      xeff -= 0.5*tan30*e;         // shift effector center to edge perpendicular to yz-plane
 
      // z = a + b*y | linear equation via subtraction of the 2 circle equations and solve after z
-     float a = (xeff*xeff + yeff*yeff + zeff*zeff +rf*rf - re*re - y1*y1)/(2*zeff);
+     float a = (xeff*xeff + yeff*yeff + zeff*zeff +lf*lf - le*le - y1*y1)/(2*zeff);
      float b = (y1-yeff)/zeff;
 
      //substitute the lin. eq. back into one of the 2 circle equations and compute the discriminant
-     float d = -(a+b*y1)*(a+b*y1)+rf*(b*b*rf+rf); 
-     if (d < 0) return -1; // non-reachable point with the given kinematics
+     float d = -((a+b*y1)*(a+b*y1))+lf*(b*b*lf+lf); 
+     //if (d < 0) return 0; //! non-reachable point with the given kinematics => then return biceps zu origin
 
      float yj = (y1 - a*b - sqrt(d))/(b*b + 1); // choosing outer point (= - branch of the quadratic equation)
      float zj = a + b*yj;
-     theta = 180.0*atan(-zj/(y1 - yj))/PI + ((yj>y1)?180.0:0.0);    //TODO: check deg rad!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-     return 0;
+     float theta = 180.0*atan(-zj/(y1 - yj))/PI; //+ ((yj>y1)?180.0:0.0);    
+     return theta;
  }
 
 //?------inverse kinematics-------
 //? input the goal endeffector position (poseff) and return goal angles theta of the motors 1,2,3 
-int invkin (float xeff, float yeff, float zeff, float &theta1, float &theta2, float &theta3){
-     theta1 = theta2 = theta3 = 0;
-     int status = delta_calcAngleYZ(xeff, yeff, zeff, theta1);
-     if (status == 0) status = delta_calcAngleYZ(xeff*cos120 + yeff*sin120, yeff*cos120-xeff*sin120, zeff, theta2);  // rotate coords to +120 deg via multiplication with (standard) rotation matrix
-     if (status == 0) status = delta_calcAngleYZ(xeff*cos120 - yeff*sin120, yeff*cos120+xeff*sin120, zeff, theta3);  // rotate coords to -120 deg via multiplication with(standard) rotation matrix
-     return status;
+//? function referencing the array invout to be able to return invout afterwards
+int (&invkin(float xeff, float yeff, float zeff))[3][2]{
+     float theta1 = delta_calcAngleYZ(xeff, yeff, zeff);
+     float theta2 = delta_calcAngleYZ(xeff*cos120 + yeff*sin120, yeff*cos120-xeff*sin120, zeff);  // rotate coords to +120 deg via multiplication with (standard) rotation matrix
+     float theta3 = delta_calcAngleYZ(xeff*cos120 - yeff*sin120, yeff*cos120+xeff*sin120, zeff);  // rotate coords to -120 deg via multiplication with(standard) rotation matrix
+     /*
+     theta1 = ((theta1/dtr)/0.088);
+     theta2 = ((theta2/dtr)/0.088);
+     theta3 = ((theta3/dtr)/0.088);
+        */
+     theta1 = (theta1/0.088); //! NEGATIVE WERTE VERMEIDEN => KANN POS CONTROL MODE NICHT VERWERTEN
+     theta2 = (theta2/0.088);
+     theta3 = (theta3/0.088);
+
+     int posmotor1 = round(theta1);
+     int posmotor2 = round(theta2);
+     int posmotor3 = round(theta3);
+
+     invout[0][1] = posmotor1;
+     invout[1][1] = posmotor2;
+     invout[2][1] = posmotor3;
+
+     return invout;
 }
