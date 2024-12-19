@@ -31,6 +31,9 @@ int invout [3][3] = {{1,5,0},{2,5,0},{3,5,0}};
 float prevangle [3] = {0,0,0}; //array that stores the theta angles of the previous calculation 
 int i = 0; 
 
+float minangle = -30.0;
+float maxangle = 90.0;
+
 //?------forward kinematics-------
 //? input the current angles theta of the motors 1,2,3 and return the current position of the endeffector (poseff)
 int fwdkin (float theta1, float theta2, float theta3) {
@@ -106,8 +109,10 @@ float delta_calcAngleYZ(float xeff, float yeff, float zeff, int i) {
      float yj = (y1 - a*b - sqrt(d))/(b*b + 1); // choosing outer point (= - branch of the quadratic equation)
      float zj = a + b*yj;
      float theta = 180.0*atan(-zj/(y1 - yj))/PI; //Output in Degree
-
-     return theta;
+     if (theta < -30 || theta > 90)
+        return prevangle[i];
+     else 
+        return theta;
  }
 
 //?------inverse kinematics-------
@@ -130,6 +135,8 @@ int (&invkin(float xeff, float yeff, float zeff))[3][3]{
      theta2 = ((theta2/dtr)/0.088);
      theta3 = ((theta3/dtr)/0.088);
         */
+
+       
      float angle1 = ((-theta1+270.0)*deg2pulse); //+270 so that negative motorpoitions (0...4095) are avoided
      float angle2 = ((-theta2+270.0)*deg2pulse); 
      float angle3 = ((-theta3+270.0)*deg2pulse);
@@ -137,6 +144,8 @@ int (&invkin(float xeff, float yeff, float zeff))[3][3]{
      int posmotor1 = static_cast<int>(round(angle1));
      int posmotor2 = static_cast<int>(round(angle2));
      int posmotor3 = static_cast<int>(round(angle3));
+
+    //! max Winkel 300 => 3409
 
      //int posmotor2 = (int)angle2;
      //int posmotor3 = (int)angle3;
