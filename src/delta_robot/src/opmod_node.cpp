@@ -54,8 +54,10 @@ class opmod : public rclcpp::Node
 
             
 
-            int (&invkinout)[3][2] = invkin(xeffmsg,yeffmsg, zeffmsg);
+            int (&invkinout)[3][3] = invkin(xeffmsg,yeffmsg, zeffmsg);
+             RCLCPP_INFO(this->get_logger(), "Calculated Motor Angles [xeff: %d] [yeff: %d] [zeff: %d]", invkinout [0][2], invkinout [1][2], invkinout [2][2]);
              RCLCPP_INFO(this->get_logger(), "Calculated Motor Positions [xeff: %d] [yeff: %d] [zeff: %d]", invkinout [0][1], invkinout [1][1], invkinout [2][1]);
+
             out1.id         =invkinout [0][0];
             out1.position   =invkinout [0][1];
             out2.id         =invkinout [1][0];

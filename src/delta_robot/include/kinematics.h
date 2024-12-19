@@ -20,11 +20,11 @@ extern float e;
 extern float f;
 extern float le;
 extern float lf;
-extern int invout[3][2];
+extern int invout[3][3];
 
 // Funktionen
 int fwdkin(float theta1, float theta2, float theta3);
 float delta_calcAngleYZ(float xeff, float yeff, float zeff);
-int (&invkin(float xeff, float yeff, float zeff))[3][2];
+int (&invkin(float xeff, float yeff, float zeff))[3][3];
 
 #endif // KINEMATICS_H
