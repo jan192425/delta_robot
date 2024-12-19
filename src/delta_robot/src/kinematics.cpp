@@ -28,6 +28,8 @@ float le = 300; //effector arm ("forearm") lenght in mm
 float lf = 200; //base arm ("biceps") lenght in mm
 
 int invout [3][3] = {{1,5,0},{2,5,0},{3,5,0}};
+float prevangle [3] = {0,0,0}; //array that stores the theta angles of the previous calculation 
+int i = 0; 
 
 //?------forward kinematics-------
 //? input the current angles theta of the motors 1,2,3 and return the current position of the endeffector (poseff)
@@ -88,7 +90,8 @@ int fwdkin (float theta1, float theta2, float theta3) {
 
 
 //helper function for calculating the motorangles theta (by reference)
-float delta_calcAngleYZ(float xeff, float yeff, float zeff) {  
+float delta_calcAngleYZ(float xeff, float yeff, float zeff, int i) { 
+     
      float y1 = -0.5* tan30*f;  // get coords of motorshaft1 which lies in the yz-plane
      yeff -= 0.5*tan30*e;         // shift effector center to edge perpendicular to yz-plane
 
@@ -98,11 +101,12 @@ float delta_calcAngleYZ(float xeff, float yeff, float zeff) {
 
      //substitute the lin. eq. back into one of the 2 circle equations and compute the discriminant
      float d = -((a+b*y1)*(a+b*y1))+lf*(b*b*lf+lf); 
-     if (d < 0) return 0; //! non-reachable point with the given kinematics => then return biceps zu origin
+     if (d < 0) return prevangle[i]; //! if non-reachable point with the given kinematics => then biceps will stay in previous position
 
      float yj = (y1 - a*b - sqrt(d))/(b*b + 1); // choosing outer point (= - branch of the quadratic equation)
      float zj = a + b*yj;
-     float theta = 180.0*atan(-zj/(y1 - yj))/PI; //+ ((yj>y1)?180.0:0.0);    //!Output in Degree
+     float theta = 180.0*atan(-zj/(y1 - yj))/PI; //Output in Degree
+
      return theta;
  }
 
@@ -110,16 +114,24 @@ float delta_calcAngleYZ(float xeff, float yeff, float zeff) {
 //? input the goal endeffector position (poseff) and return goal angles theta of the motors 1,2,3 
 //? function referencing the array invout to be able to return invout afterwards
 int (&invkin(float xeff, float yeff, float zeff))[3][3]{
-     float theta1 = delta_calcAngleYZ(xeff, yeff, zeff);
-     float theta2 = delta_calcAngleYZ(xeff*cos120 + yeff*sin120, yeff*cos120-xeff*sin120, zeff);  // rotate coords to +120 deg via multiplication with (standard) rotation matrix
-     float theta3 = delta_calcAngleYZ(xeff*cos120 - yeff*sin120, yeff*cos120+xeff*sin120, zeff);  // rotate coords to -120 deg via multiplication with(standard) rotation matrix
+     i = 0;   
+     float theta1 = delta_calcAngleYZ(xeff, yeff, zeff, i);
+     i++;
+     float theta2 = delta_calcAngleYZ(xeff*cos120 + yeff*sin120, yeff*cos120-xeff*sin120, zeff, i);  // rotate coords to +120 deg via multiplication with (standard) rotation matrix
+     i++;
+     float theta3 = delta_calcAngleYZ(xeff*cos120 - yeff*sin120, yeff*cos120+xeff*sin120, zeff, i);  // rotate coords to -120 deg via multiplication with(standard) rotation matrix
+
+     prevangle [0] = theta1;
+     prevangle [1] = theta2;
+     prevangle [2] = theta3;
+
      /*
      theta1 = ((theta1/dtr)/0.088);
      theta2 = ((theta2/dtr)/0.088);
      theta3 = ((theta3/dtr)/0.088);
         */
-     float angle1 = ((-theta1+270.0)*deg2pulse); //? +90 um NEGATIVE WERTE zu VERMEIDEN => KANN POS CONTROL MODE NICHT VERWERTEN
-     float angle2 = ((-theta2+270.0)*deg2pulse); //! 4095 - weil Motor nach rechts schaut und Arm für Motor gesehen bei 270° und nicht bei 90° steht
+     float angle1 = ((-theta1+270.0)*deg2pulse); //+270 so that negative motorpoitions (0...4095) are avoided
+     float angle2 = ((-theta2+270.0)*deg2pulse); 
      float angle3 = ((-theta3+270.0)*deg2pulse);
 
      int posmotor1 = static_cast<int>(round(angle1));
