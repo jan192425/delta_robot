@@ -12,6 +12,8 @@
 #include "dynamixel_sdk_custom_interfaces/msg/set_position.hpp"
 #include "dynamixel_sdk_custom_interfaces/srv/get_position.hpp"
 
+#include "delta_robot_interfaces/msg/op_mod.hpp"
+
 class commot : public rclcpp::Node
 {
 public:
@@ -24,11 +26,12 @@ public:
 private:
   rclcpp::Subscription<SetPosition>::SharedPtr set_position_subscriber_;
   rclcpp::Service<GetPosition>::SharedPtr get_position_server_;
-  //!rclpp:Publisher
-  //!rclcpp::Publisher<pub Typ>::SharedPtr pospub;
-
-
+  rclcpp::Subscription<delta_robot_interfaces::msg::OpMod>::SharedPtr OpMod_subscriber_;
+  
   int present_position;
+  int present_position_1;
+  int present_position_2;
+  int present_position_3;
 };
 
 #endif  

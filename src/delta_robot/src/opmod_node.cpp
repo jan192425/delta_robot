@@ -36,9 +36,15 @@ class opmod : public rclcpp::Node
     const auto QOS_RKL10V =
         rclcpp::QoS(rclcpp::KeepLast(qos_depth)).reliable().durability_volatile();
 
-    _pubGoalPosMotor = this -> create_publisher<dynamixel_sdk_custom_interfaces::msg::SetPosition>("set_position",QOS_RKL10V);
+ 
+
+    
     _subGoalPosEffector = this -> create_subscription<delta_robot_interfaces::msg::GoalPosEffector>("GoalPosEffector",1, std::bind(&opmod::callbackPOINTNAV,this,_1));
-  
+    
+    _pubGoalPosMotor = this -> create_publisher<dynamixel_sdk_custom_interfaces::msg::SetPosition>("set_position",QOS_RKL10V);
+    
+    
+    //! Idee adaptive Regelparameter als Funktion der Regelabweichung => Problem muss das in idealerweise in read/write Node machen => sonst rel redundante node struktur und keine klare trennung
 
 
     }
@@ -50,7 +56,7 @@ class opmod : public rclcpp::Node
             
             float xeffmsg = msg.xeff;
             float yeffmsg = msg.yeff;
-            float zeffmsg = msg.zeff;
+            float zeffmsg = -msg.zeff; //kinematics is based on a normal delta robot => needs a neg. z coord but in this case it's more intuitive to set a positive z coord
 
             
 

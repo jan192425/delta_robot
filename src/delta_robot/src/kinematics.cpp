@@ -18,14 +18,14 @@ using namespace std;
 
 //! Radii must be set according to the position of the intersection of the arm's symmetry axis
 //! with the axis of either the motorshaft or the endeffector joint shaft !!!!!!!!!!!!!!!!!!!!!!
-float re = 30;  //effector radius in mm
-float rf = 100; //base radius in mm
+float re = 30.0;  //effector radius in mm
+float rf = 95.0; //base radius in mm
 float e = 2*re*tan60;  //length of triangle side of endeffector
 float f = 2*rf*tan60;  //length of triangle side of base
 float deg2pulse = 4096.0 / 360.0;
 
-float le = 300; //effector arm ("forearm") lenght in mm
-float lf = 200; //base arm ("biceps") lenght in mm
+float le = 300.0; //effector arm ("forearm") lenght in mm
+float lf = 200.0; //base arm ("biceps") lenght in mm
 
 int invout [3][3] = {{1,5,0},{2,5,0},{3,5,0}};
 float prevangle [3] = {0,0,0}; //array that stores the theta angles of the previous calculation 

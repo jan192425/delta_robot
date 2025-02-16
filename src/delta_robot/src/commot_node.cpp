@@ -6,6 +6,7 @@
 #include <memory>
 #include <string>
 #include <cstdio>
+#include <cmath>
 
 #include "dynamixel_sdk/dynamixel_sdk.h"
 #include "dynamixel_sdk_custom_interfaces/msg/set_position.hpp"
@@ -15,6 +16,8 @@
 
 #include "../include/commot_node.hpp"
 
+#include "delta_robot_interfaces/msg/op_mod.hpp"
+
 
 // Control table address for X series (except XL-320)
 #define ADDR_OPERATING_MODE 11
@@ -22,12 +25,16 @@
 #define ADDR_GOAL_POSITION 116
 #define ADDR_PRESENT_POSITION 132
 
+#define ADDR_POS_P_GAIN 84
+#define ADDR_POS_I_GAIN 82
+#define ADDR_POS_D_GAIN 80
+
 // Protocol version
 #define PROTOCOL_VERSION 2.0  // Default Protocol version of DYNAMIXEL X series.
 
 // Default setting
 #define BAUDRATE 57600  // Default Baudrate of DYNAMIXEL X series
-#define DEVICE_NAME "/dev/ttyUSB1"  //! [Linux]: "/dev/ttyUSBXXXXXXXX", [Windows]: "COM*"
+#define DEVICE_NAME "/dev/ttyUSB0"  //! [Linux]: "/dev/ttyUSBXXXXXXXX", [Windows]: "COM*"
 
 dynamixel::PortHandler * portHandler;
 dynamixel::PacketHandler * packetHandler;
@@ -108,20 +115,150 @@ commot::commot(): Node("COMMOT")
         );
 
         response->position = present_position;
-        /*
-        //publish position to OPMOD node via Publisher
-        msg_typ::mgs::.... //!vllt einfach set postion message type verwenden?
-        irgendwie message = present_postion
-        */
       };
 
     //create a service sever for the defined lambda function
     get_position_server_ = create_service<GetPosition>("get_position", get_present_position);
     
-    /*
-    //?publisher for of the current motor position to OPMOD Node
-    pospub = this->create_publisher<pub TYP>("topicname", queue size)
-    */
+
+
+    //? sub für opmode und switch case für Reglerkoeffizienten für den entsprechenden mode
+    //? + adaptive Veränderung der Reglerparameter (linear => ähnlich Feder ODER vllt auch eine nicht lineare Funktion => könnte so den die äußeren Bereiche lange weich lassen)
+    //? konstante Reibungskompensation aufschalten 
+
+    //TODO: 1.Umsetungsidee: adaptiver P-Regler wobei Kp(e) = 1000/((e-2)^0,75) mit der Regelabweichung e (in increment) ist
+    
+    OpMod_subscriber_ =
+    this->create_subscription<delta_robot_interfaces::msg::OpMod>(
+    "OpMod",
+    QOS_RKL10V,
+    [this](const delta_robot_interfaces::msg::OpMod::SharedPtr msg) -> void  //lambda function with capture of local class and void {functionality} return
+    {
+      uint8_t dxl_error = 0;
+      
+
+      switch(msg->mode){
+        case 'p':{
+          int kp = 80;
+          //TODO:  MIT EINER FOR-SCHLEIFE (1-3)alle Schritte für die Motoren hintereinander durch gehen
+          dxl_comm_result =
+          packetHandler->write2ByteTxRx(    //write&read functions can be found in DynamixelSDK/dynamixel_sdk/include/dynamixel_sdk/protocol2_packet_handler.h
+          portHandler,
+          1,
+          ADDR_POS_P_GAIN,
+          kp,
+          &dxl_error);
+          dxl_comm_result =
+          packetHandler->write2ByteTxRx(    //write&read functions can be found in DynamixelSDK/dynamixel_sdk/include/dynamixel_sdk/protocol2_packet_handler.h
+          portHandler,
+          2,
+          ADDR_POS_P_GAIN,
+          kp,
+          &dxl_error);
+          dxl_comm_result =
+          packetHandler->write2ByteTxRx(    //write&read functions can be found in DynamixelSDK/dynamixel_sdk/include/dynamixel_sdk/protocol2_packet_handler.h
+          portHandler,
+          3,
+          ADDR_POS_P_GAIN,
+          kp,
+          &dxl_error);
+          //TODO: checken ob in current-based position controll mode I- und D-Anteile wirklich 0 sind!!!!!!!!!!!!!!!!!
+          break;
+        }
+
+        case 'c': {
+          //TODO:  MIT EINER FOR-SCHLEIFE (1-3)alle Schritte für die Motoren hintereinander durch gehen
+          //reading present positions of the 3 motors
+          dxl_comm_result = packetHandler->read4ByteTxRx(
+            portHandler,
+            1,
+            ADDR_PRESENT_POSITION,
+            reinterpret_cast<uint32_t *>(&present_position_1),
+            &dxl_error
+          );
+          dxl_comm_result = packetHandler->read4ByteTxRx(
+            portHandler,
+            2,
+            ADDR_PRESENT_POSITION,
+            reinterpret_cast<uint32_t *>(&present_position_2),
+            &dxl_error
+          );
+          dxl_comm_result = packetHandler->read4ByteTxRx(
+            portHandler,
+            3,
+            ADDR_PRESENT_POSITION,
+            reinterpret_cast<uint32_t *>(&present_position_3),
+            &dxl_error
+          );
+
+          //die ursprungsposition für den compliant mode ist die effektor position xeff=0, yeff=0 und z=200 => resultiert für alle 3 Motren auf dem 2911. Inkrement
+          int home_position = 2911;
+          
+          dxl_comm_result =
+          packetHandler->write4ByteTxRx(    
+          portHandler,
+          1,
+          ADDR_GOAL_POSITION,
+          home_position,
+          &dxl_error
+          );
+          dxl_comm_result =
+          packetHandler->write4ByteTxRx(    
+          portHandler,
+          2,
+          ADDR_GOAL_POSITION,
+          home_position,
+          &dxl_error
+          );
+          dxl_comm_result =
+          packetHandler->write4ByteTxRx(    
+          portHandler,
+          3,
+          ADDR_GOAL_POSITION,
+          home_position,
+          &dxl_error
+          );
+
+          // calculate difference between present_position and home-position and calculate Kp based on Kp(e) = 1000/((e-2)^0,75)
+          float Kp1 = 1000/(pow(static_cast<double>(abs(home_position-present_position_1)-2),0.75));
+          float Kp2 = 1000/(pow(static_cast<double>(abs(home_position-present_position_1)-2),0.75));
+          float Kp3 = 1000/(pow(static_cast<double>(abs(home_position-present_position_1)-2),0.75));
+
+          //write new Kp to motors
+          dxl_comm_result =
+          packetHandler->write4ByteTxRx(    
+          portHandler,
+          1,
+          ADDR_POS_P_GAIN,
+          static_cast<uint32_t>(std::round(Kp1)),
+          &dxl_error
+          );
+          dxl_comm_result =
+          packetHandler->write4ByteTxRx(    
+          portHandler,
+          2,
+          ADDR_POS_P_GAIN,
+          static_cast<uint32_t>(std::round(Kp2)),
+          &dxl_error
+          );
+          dxl_comm_result =
+          packetHandler->write4ByteTxRx(    
+          portHandler,
+          3,
+          ADDR_POS_P_GAIN,
+          static_cast<uint32_t>(std::round(Kp3)),
+          &dxl_error
+          );
+          break;
+        }
+
+        default:
+          RCLCPP_ERROR(rclcpp::get_logger("COMMOT"), "No Operating Mode was chosen");
+          break;
+      
+      }
+    }
+    );
 }
 
 commot::~commot()
@@ -135,7 +272,7 @@ void setupDynamixel(uint8_t dxl_id)
     portHandler,
     dxl_id,
     ADDR_OPERATING_MODE,
-    3,
+    5,   //current-based position control was chosen => needed for compliant mode and smoother für point navigation mode
     &dxl_error
   );
 
@@ -205,30 +342,3 @@ int main(int argc, char * argv[])
 }
 
 
-//TODO: Herausfinden wie man IDs den einzelnen Motoren zuweist und seperat über COMMOT mit ihnen kommunizieren kann
-//TODO: alles aus DelRobCode in github hochladen
-//TODO: dynamixel sdk für humble -package in delrob verzeichnis installieren und colcon build mal testweise durchlaufen lassen
-/*
-using namespace std::chrono_literals;
-
-class commot : public rclpp::Node
-{
-
-    public:
-        commot():Node("COMMOT")
-        {
-            
-        }
-
-
-}
-
-theta1 = currentpostion1 *0.088*; //Unit: deg | currentpostion1 = Platzhalter für adresscall von Motor1 
-
-int main(int argc, char * argv[])
-{
-  rclcpp::init(argc, argv);
-  rclcpp::spin(std::make_shared<commot>());
-  rclcpp::shutdown();
-  return 0;
-}*/

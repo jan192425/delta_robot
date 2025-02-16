@@ -15,6 +15,7 @@ find_package(rosidl_default_generators REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/GoalPosEffector.msg"
+  "msg/OpMod.msg"
   DEPENDENCIES builtin_interfaces
 )
 
