@@ -28,7 +28,9 @@ float le = 300.0; //effector arm ("forearm") lenght in mm
 float lf = 200.0; //base arm ("biceps") lenght in mm
 
 int invout [3][3] = {{1,5,0},{2,5,0},{3,5,0}};
-float prevangle [3] = {0,0,0}; //array that stores the theta angles of the previous calculation 
+float prevangle [3] = {0,0,0}; //array that stores the theta angles of the previous inverse calculation 
+std::array<float, 3> poseff = {0,0,0};
+std::array<float, 3> prevposition = {1,0,5}; //array that stores the theta angles of the previous forward calculation 
 int i = 0; 
 
 float minangle = -30.0;
@@ -36,12 +38,12 @@ float maxangle = 90.0;
 
 //?------forward kinematics-------
 //? input the current angles theta of the motors 1,2,3 and return the current position of the endeffector (poseff)
-int fwdkin (float theta1, float theta2, float theta3) {
+std::array<float, 3> fwdkin(int motpos1, int motpos2, int motpos3) {
     float t = (f-e)*tan30/2; //Delta of the distance from the base (f) and effector (e) sides to z axis (common centerpoint of the triangles in start position)
     
-    theta1 *= dtr;   
-    theta2 *= dtr;
-    theta2 *= dtr;
+    float theta1 = -dtr*((motpos1*(1/deg2pulse))-270);   
+    float theta2 = -dtr*((motpos2*(1/deg2pulse))-270);
+    float theta3 = -dtr*((motpos3*(1/deg2pulse))-270);      
 
     //Calculation of the joint positions with joint1 in the yz-plane and the other arms 30° rotated to relative to the x-axis
     float y1 = -(t + rf*cos(theta1));
@@ -65,30 +67,41 @@ int fwdkin (float theta1, float theta2, float theta3) {
 
     //* (I) x = (a1*z + b1)/dnm
     float a1 = (z2-z1)*(y3-y1)-(z3-z1)*(y2-y1);
-    float b1 = -((w2-w1)*(y3-y1)-(w3-w1)*(y2-y1))/2.0;
+    float b1 = -((w2-w1)*(y3-y1)-(w3-w1)*(y2-y1))/(float)2.0;
  
     //* (II) y = (a2*z + b2)/dnm;
     float a2 = -(z2-z1)*x3+(z3-z1)*x2;
-    float b2 = ((w2-w1)*x3 - (w3-w1)*x2)/2.0;
+    float b2 = ((w2-w1)*x3 - (w3-w1)*x2)/(float)2.0;
  
     //* Substitute y and x in the equation for sphere1 and solve the resulting quadratic equation to get z
     float a = a1*a1 + a2*a2 + dnm*dnm;
     float b = 2*(a1*b1 + a2*(b2-y1*dnm) - z1*dnm*dnm);
-    float c = (b2-y1*dnm)*(b2-y1*dnm) + b1*b1 + dnm*dnm*(z1*z1 - re*re);
+    float c = -(b2-y1*dnm)*(b2-y1*dnm) + b1*b1 + dnm*dnm*(z1*z1 - re*re); //! - gehört da laut code eigentlich nicht hin => aber so funktionierts(optisc) tatsächlich
   
     // discriminant
     float d = b*b - (float)4.0*a*c;
-    if (d < 0) return -1; // non-existing point
+    if (d < 0) return prevposition; // non-existing point
 
     //resulting coords of the effector
     float zeff = -(float)0.5*(b+sqrt(d))/a;
     float xeff = (a1*zeff + b1)/dnm;
     float yeff = (a2*zeff + b2)/dnm;
-
+   
+    prevposition [0] = theta1;
+    prevposition [1] = theta2;
+    prevposition [2] = -zeff;
     
-    float poseff[3] = {xeff,yeff,zeff};
+    poseff[0] = xeff;
+    poseff[1] = yeff;
+    poseff[2] = -zeff;
+   /*
+    poseff[0] = a;
+    poseff[1] = c;
+    poseff[2] = c;
+*/
+    
 
-    return 0;
+    return poseff;
 }
 
 

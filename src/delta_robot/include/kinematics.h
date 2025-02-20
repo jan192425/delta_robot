@@ -21,10 +21,12 @@ extern float f;
 extern float le;
 extern float lf;
 extern int invout[3][3];
+extern std::array<float, 3> poseff;
+extern std::array<float, 3> prevposition;
 extern int i;
 
 // Funktionen
-int fwdkin(float theta1, float theta2, float theta3);
+std::array<float, 3>  fwdkin(int motpos1, int motpos2, int motpos3);
 float delta_calcAngleYZ(float xeff, float yeff, float zeff, int i);
 int (&invkin(float xeff, float yeff, float zeff))[3][3];
 

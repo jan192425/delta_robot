@@ -29,9 +29,7 @@ private:
   rclcpp::Subscription<delta_robot_interfaces::msg::OpMod>::SharedPtr OpMod_subscriber_;
   
   int present_position;
-  int present_position_1;
-  int present_position_2;
-  int present_position_3;
+  int present_position_i;
 };
 
 #endif  

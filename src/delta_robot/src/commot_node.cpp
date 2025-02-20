@@ -138,117 +138,94 @@ commot::commot(): Node("COMMOT")
       
 
       switch(msg->mode){
-        case 'p':{
-          int kp = 80;
-          //TODO:  MIT EINER FOR-SCHLEIFE (1-3)alle Schritte für die Motoren hintereinander durch gehen
+        case 0 :{  
+           //TODO: fwdkinout von Bezugsposition abziehen (falls möglich fallunterscheidung ob vor compliant mode pointnav genutzt wurde => wenn ja dann Bezugsposition = alt GoalPos Pointnav ANSONSTEN FESTERWERT)
+                              //punktnav
+          int kpp = 800;
+          int kdp = 8500;
+          int start_position = 2692;
+          
+          for (int i =1; i<=3; i++){          //sequential setting of Motor control paramaters
           dxl_comm_result =
-          packetHandler->write2ByteTxRx(    //write&read functions can be found in DynamixelSDK/dynamixel_sdk/include/dynamixel_sdk/protocol2_packet_handler.h
-          portHandler,
-          1,
-          ADDR_POS_P_GAIN,
-          kp,
-          &dxl_error);
+            packetHandler->write2ByteTxRx(    //write&read functions can be found in DynamixelSDK/dynamixel_sdk/include/dynamixel_sdk/protocol2_packet_handler.h
+            portHandler,
+            i,
+            ADDR_POS_P_GAIN,
+            kpp,
+            &dxl_error);
+                  
           dxl_comm_result =
-          packetHandler->write2ByteTxRx(    //write&read functions can be found in DynamixelSDK/dynamixel_sdk/include/dynamixel_sdk/protocol2_packet_handler.h
-          portHandler,
-          2,
-          ADDR_POS_P_GAIN,
-          kp,
-          &dxl_error);
+            packetHandler->write2ByteTxRx(   
+            portHandler, 
+            i,
+            ADDR_POS_D_GAIN,
+            kdp,
+            &dxl_error);
+            
           dxl_comm_result =
-          packetHandler->write2ByteTxRx(    //write&read functions can be found in DynamixelSDK/dynamixel_sdk/include/dynamixel_sdk/protocol2_packet_handler.h
-          portHandler,
-          3,
-          ADDR_POS_P_GAIN,
-          kp,
-          &dxl_error);
-          //TODO: checken ob in current-based position controll mode I- und D-Anteile wirklich 0 sind!!!!!!!!!!!!!!!!!
+            packetHandler->write4ByteTxRx(    
+            portHandler,
+            i,
+            ADDR_GOAL_POSITION,
+            start_position,
+            &dxl_error);
+          }
+
           break;
         }
 
-        case 'c': {
-          //TODO:  MIT EINER FOR-SCHLEIFE (1-3)alle Schritte für die Motoren hintereinander durch gehen
+        case 1 : {                   //compliant
+           //TODO: fwdkinout von Bezugsposition abziehen (falls möglich fallunterscheidung ob vor compliant mode pointnav genutzt wurde => wenn ja dann Bezugsposition = alt GoalPos Pointnav ANSONSTEN FESTERWERT)
+
+          for (int i =1; i<=3; i++){                            //sequential setting of Motor control paramaters
+          
+          //die ursprungsposition für den compliant mode ist die effektor position xeff=0, yeff=0 und z=200 => resultiert für alle 3 Motren auf dem 2911. Inkrement
+          int home_position = 2692;
+          
+          dxl_comm_result =
+            packetHandler->write4ByteTxRx(    
+            portHandler,
+            i,
+            ADDR_GOAL_POSITION,
+            home_position,
+            &dxl_error
+          );
+          /*
           //reading present positions of the 3 motors
           dxl_comm_result = packetHandler->read4ByteTxRx(
             portHandler,
-            1,
+            i,
             ADDR_PRESENT_POSITION,
-            reinterpret_cast<uint32_t *>(&present_position_1),
+            reinterpret_cast<uint32_t *>(&present_position_i),
             &dxl_error
           );
-          dxl_comm_result = packetHandler->read4ByteTxRx(
-            portHandler,
-            2,
-            ADDR_PRESENT_POSITION,
-            reinterpret_cast<uint32_t *>(&present_position_2),
-            &dxl_error
-          );
-          dxl_comm_result = packetHandler->read4ByteTxRx(
-            portHandler,
-            3,
-            ADDR_PRESENT_POSITION,
-            reinterpret_cast<uint32_t *>(&present_position_3),
-            &dxl_error
-          );
-
-          //die ursprungsposition für den compliant mode ist die effektor position xeff=0, yeff=0 und z=200 => resultiert für alle 3 Motren auf dem 2911. Inkrement
-          int home_position = 2911;
           
-          dxl_comm_result =
-          packetHandler->write4ByteTxRx(    
-          portHandler,
-          1,
-          ADDR_GOAL_POSITION,
-          home_position,
-          &dxl_error
-          );
-          dxl_comm_result =
-          packetHandler->write4ByteTxRx(    
-          portHandler,
-          2,
-          ADDR_GOAL_POSITION,
-          home_position,
-          &dxl_error
-          );
-          dxl_comm_result =
-          packetHandler->write4ByteTxRx(    
-          portHandler,
-          3,
-          ADDR_GOAL_POSITION,
-          home_position,
-          &dxl_error
-          );
+            // calculate difference between present_position and home-position and calculate Kp based on Kp(e) = 1000/((e-2)^0,75)
+          int e = home_position-present_position_i;
+          RCLCPP_INFO(this->get_logger(), "Present [ID: %i] [e: %i]", i, e);
 
-          // calculate difference between present_position and home-position and calculate Kp based on Kp(e) = 1000/((e-2)^0,75)
-          float Kp1 = 1000/(pow(static_cast<double>(abs(home_position-present_position_1)-2),0.75));
-          float Kp2 = 1000/(pow(static_cast<double>(abs(home_position-present_position_1)-2),0.75));
-          float Kp3 = 1000/(pow(static_cast<double>(abs(home_position-present_position_1)-2),0.75));
-
+          //float kpc = 1000/(pow(static_cast<double>(abs(e)-2),0.6));
+          float kpc = 0.001*(pow(static_cast<double>(abs(e)-150)+25,2));
+          */
           //write new Kp to motors
           dxl_comm_result =
-          packetHandler->write4ByteTxRx(    
-          portHandler,
-          1,
-          ADDR_POS_P_GAIN,
-          static_cast<uint32_t>(std::round(Kp1)),
-          &dxl_error
+          packetHandler->write2ByteTxRx(    
+            portHandler,
+            i,
+            ADDR_POS_P_GAIN,
+            25,                          //static_cast<uint32_t>(std::round(kpc)),
+            &dxl_error
           );
+          //RCLCPP_INFO(this->get_logger(), "Setted [ID: %i] [KPR: %f]", i, kpc);
           dxl_comm_result =
-          packetHandler->write4ByteTxRx(    
-          portHandler,
-          2,
-          ADDR_POS_P_GAIN,
-          static_cast<uint32_t>(std::round(Kp2)),
-          &dxl_error
+          packetHandler->write2ByteTxRx(    
+            portHandler,
+            i,
+            ADDR_POS_I_GAIN,
+            0,
+            &dxl_error
           );
-          dxl_comm_result =
-          packetHandler->write4ByteTxRx(    
-          portHandler,
-          3,
-          ADDR_POS_P_GAIN,
-          static_cast<uint32_t>(std::round(Kp3)),
-          &dxl_error
-          );
+          }
           break;
         }
 
