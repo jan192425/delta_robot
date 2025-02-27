@@ -47,7 +47,7 @@ class opmod : public rclcpp::Node
     //_subGoalPosEffector = this -> create_subscription<delta_robot_interfaces::msg::GoalPosEffector>("GoalPosEffector",1, std::bind(&opmod::callbackPOINTNAV,this,_1));
     _pubGoalPosMotor = this -> create_publisher<dynamixel_sdk_custom_interfaces::msg::SetPosition>("set_position",QOS_RKL10V);
 
-    _pubDirection = this -> create_publisher<geometry_msgs::msg::Twist>("MobRob",QOS_RKL10V);  //! topic name "MobRob" muss hier und beim MobRob gleichsein!! KA wie das topic beim mobrob heißt
+    _pubDirection = this -> create_publisher<geometry_msgs::msg::Twist>("cmd_vel",QOS_RKL10V);  //! topic name "MobRob" muss hier und beim MobRob gleichsein!! 
 
     
     pos_client = this -> create_client<dynamixel_sdk_custom_interfaces::srv::GetPosition>("get_position");
@@ -125,7 +125,7 @@ class opmod : public rclcpp::Node
                         [this,i](rclcpp::Client<dynamixel_sdk_custom_interfaces::srv::GetPosition>::SharedFuture future) {
                             auto result = future.get();
                             //RCLCPP_INFO(this->get_logger(), "Position recieved [position: %d]", result->position);
-                            fwdkin_in [i] = result -> position;
+                            fwdkin_in [i] = result -> position;   
                         });
                         
                         
@@ -133,16 +133,19 @@ class opmod : public rclcpp::Node
                         //RCLCPP_INFO(this->get_logger(), "Position recieved [position: %d]", fwdkin_in [i]);
                     }
                     
-                    //RCLCPP_INFO(this->get_logger(), "Position recieved [position1: %d][position2: %d][position3: %d]", fwdkin_in [0], fwdkin_in [1], fwdkin_in [2]);
+                    RCLCPP_INFO(this->get_logger(), "Position recieved [position1: %d][position2: %d][position3: %d]", fwdkin_in [0], fwdkin_in [1], fwdkin_in [2]);
 
                     std::array<float, 3> fwdkinout = fwdkin(fwdkin_in[0], fwdkin_in[1], fwdkin_in[2]);
-                                                           
+                    //RCLCPP_INFO(this->get_logger(), "Twist published [linear x: %f] [linear y: %f] [linear z: %f]", fwdkinout[0], fwdkinout[1], fwdkinout[2]);
+
+
                     //TODO:  Twist(linear)Nachricht veröffentlichen => lineargeschwindigkeiten x und y = deltx und delty (evtl. mal Verstärkungsfaktor) => Mobrob geschwindigkeit skaliert einfach mit Positionsabstand
                     geometry_msgs::msg::Twist twist;
                     twist.linear.x = fwdkinout[0];
                     twist.linear.y = fwdkinout[1];
+                    twist.linear.z = fwdkinout[2];
                     _pubDirection -> publish(twist);
-                    RCLCPP_INFO(this->get_logger(), "Twist published [linear x: %f] [linear y: %f] [linear z: %f]", fwdkinout[0], fwdkinout[1], fwdkinout[2]);
+                    
                     break;  
                 }
 

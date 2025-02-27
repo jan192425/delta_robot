@@ -1,8 +1,7 @@
-/*
+
 #include <iostream>
 #include <chrono>
 #include <functional>
-*/
 #include <memory>
 #include <string>
 #include <cstdio>
@@ -25,6 +24,8 @@
 #define ADDR_GOAL_POSITION 116
 #define ADDR_PRESENT_POSITION 132
 
+#define ADDR_VEL_I_GAIN 76
+#define ADDR_VEL_P_GAIN 78
 #define ADDR_POS_P_GAIN 84
 #define ADDR_POS_I_GAIN 82
 #define ADDR_POS_D_GAIN 80
@@ -97,6 +98,7 @@ commot::commot(): Node("COMMOT")
       const std::shared_ptr<GetPosition::Request> request,
       std::shared_ptr<GetPosition::Response> response) -> void
       {
+        uint32_t present_position = 0;
         // Read Present Position (length : 4 bytes) and Convert uint32 -> int32
         // When reading 2 byte data from AX / MX(1.0), use read2ByteTxRx() instead.
         dxl_comm_result = packetHandler->read4ByteTxRx(
@@ -106,14 +108,14 @@ commot::commot(): Node("COMMOT")
           reinterpret_cast<uint32_t *>(&present_position),
           &dxl_error
         );
-
+        /*
         RCLCPP_INFO(
           this->get_logger(),
           "Get [ID: %d] [Present Position: %d]",
           request->id,
           present_position
         );
-
+        */
         response->position = present_position;
       };
 
@@ -176,12 +178,22 @@ commot::commot(): Node("COMMOT")
 
         case 1 : {                   //compliant
            //TODO: fwdkinout von Bezugsposition abziehen (falls möglich fallunterscheidung ob vor compliant mode pointnav genutzt wurde => wenn ja dann Bezugsposition = alt GoalPos Pointnav ANSONSTEN FESTERWERT)
-
-          for (int i =1; i<=3; i++){                            //sequential setting of Motor control paramaters
-          
-          //die ursprungsposition für den compliant mode ist die effektor position xeff=0, yeff=0 und z=200 => resultiert für alle 3 Motren auf dem 2911. Inkrement
+           //uint32_t  home_position = 2692;
           int home_position = 2692;
-          
+
+          for (int i =1; i<=3; i++){ 
+          dxl_comm_result =
+                  packetHandler->write2ByteTxRx(    
+                    portHandler,
+                    i,
+                    ADDR_POS_D_GAIN,
+                    0,
+                    &dxl_error
+                  );
+          if (dxl_comm_result != COMM_SUCCESS) {
+            RCLCPP_WARN(this->get_logger(), "Error with zeroing D-Gain of motor %d, breaking loop", i);
+            break; }// Schleife vorzeitig beenden
+
           dxl_comm_result =
             packetHandler->write4ByteTxRx(    
             portHandler,
@@ -190,7 +202,46 @@ commot::commot(): Node("COMMOT")
             home_position,
             &dxl_error
           );
+          if (dxl_comm_result != COMM_SUCCESS) {
+            RCLCPP_WARN(this->get_logger(), "Error with writing Goal Position to motor %d, breaking loop", i);
+            break; }// Schleife vorzeitig beenden
+          }
+
+          RCLCPP_INFO(rclcpp::get_logger("COMMOT"), "Succeeded to zero D-Gains and setting home position of all 3");
+
+
+          //auto start_time = std::chrono::steady_clock::now();
+
+
+          for (int i =1; i<=3; i++){                            //sequential setting of Motor control paramaters
           /*
+          dxl_comm_result =
+                  packetHandler->write2ByteTxRx(    
+                    portHandler,
+                    i,
+                    ADDR_POS_D_GAIN,
+                    0,
+                    &dxl_error
+                  );
+          if (dxl_comm_result != COMM_SUCCESS) {
+            RCLCPP_WARN(this->get_logger(), "Error with zeroing D-Gain of motor %d, breaking loop", i);
+            break; }// Schleife vorzeitig beenden
+          //die ursprungsposition für den compliant mode ist die effektor position xeff=0, yeff=0 und z=300 => resultiert für alle 3 Motoren auf dem 2692. Inkrement
+        
+          dxl_comm_result =
+            packetHandler->write4ByteTxRx(    
+            portHandler,
+            i,
+            ADDR_GOAL_POSITION,
+            home_position,
+            &dxl_error
+          );
+          if (dxl_comm_result != COMM_SUCCESS) {
+            RCLCPP_WARN(this->get_logger(), "Error with writing Goal Position to motor %d, breaking loop", i);
+            break; }// Schleife vorzeitig beenden
+          
+
+          uint32_t present_position_i = 0;
           //reading present positions of the 3 motors
           dxl_comm_result = packetHandler->read4ByteTxRx(
             portHandler,
@@ -199,32 +250,54 @@ commot::commot(): Node("COMMOT")
             reinterpret_cast<uint32_t *>(&present_position_i),
             &dxl_error
           );
+          //Definition of logger output
+          if (dxl_comm_result != COMM_SUCCESS) {
+            RCLCPP_WARN(this->get_logger(), "Reading present Pos: %s, breaking loop", packetHandler->getTxRxResult(dxl_comm_result));
+            break; }// Schleife vorzeitig beenden
+            else if (dxl_error != 0) {
+            RCLCPP_WARN(this->get_logger(), "Reading present Pos: %s, breaking loop", packetHandler->getRxPacketError(dxl_error));
+            break; }// Schleife vorzeitig beenden
+            else {
+            RCLCPP_INFO(this->get_logger(), "Present [ID: %i]", i);
+          }    
           
-            // calculate difference between present_position and home-position and calculate Kp based on Kp(e) = 1000/((e-2)^0,75)
+          //calculate difference between present_position and home-position and calculate Kp based on Kp(e) = 1000/((e-2)^0,75)
           int e = home_position-present_position_i;
-          RCLCPP_INFO(this->get_logger(), "Present [ID: %i] [e: %i]", i, e);
+          e = abs(e);
+          //int e = static_cast<int>(std::max(home_position, present_position_i) - std::min(home_position, present_position_i));
 
-          //float kpc = 1000/(pow(static_cast<double>(abs(e)-2),0.6));
-          float kpc = 0.001*(pow(static_cast<double>(abs(e)-150)+25,2));
+          RCLCPP_INFO(this->get_logger(), "Present [ID: %i] [e: %i]", i, e);
+          float maxkp = 200.0;
+          //float kpc = 1000/(pow(static_cast<double>(abs(e)-1),0.4));
+          //float kpc = 0.001*(pow(static_cast<double>(abs(e)-150)+25,2));
+          //float kpc = (abs(e) > 30) ? 1000 / (pow(static_cast<double>(abs(e)), 0.50)) : (maxkp-75);
+          //float kpc = (abs(e) > 0) ? 1.5*(pow(10.0,(static_cast<double>(abs(e)))/150.0))+0.15*static_cast<double>(abs(e))+10.0 : (maxkp-180);
+                   
+          float kpc = (e > 0) ? 0.25*(static_cast<double>(e))+10.0 : (maxkp-180.0);     //!Beste Params bisher m=0.3 und c=10 ABER ca. 7cm Höhen abweichung
+
+          if (kpc > maxkp){
+            kpc = maxkp;
+          }
           */
           //write new Kp to motors
           dxl_comm_result =
-          packetHandler->write2ByteTxRx(    
+          packetHandler-> write2ByteTxRx(    
             portHandler,
             i,
             ADDR_POS_P_GAIN,
             25,                          //static_cast<uint32_t>(std::round(kpc)),
             &dxl_error
           );
-          //RCLCPP_INFO(this->get_logger(), "Setted [ID: %i] [KPR: %f]", i, kpc);
-          dxl_comm_result =
-          packetHandler->write2ByteTxRx(    
-            portHandler,
-            i,
-            ADDR_POS_I_GAIN,
-            0,
-            &dxl_error
-          );
+          
+          if (dxl_comm_result != COMM_SUCCESS) {
+            RCLCPP_WARN(this->get_logger(), "Writing kpc: %s, breaking loop", packetHandler->getTxRxResult(dxl_comm_result));
+            break; }// Schleife vorzeitig beenden
+            else if (dxl_error != 0) {
+            RCLCPP_WARN(this->get_logger(), "Writing kpc: %s, breaking loop", packetHandler->getRxPacketError(dxl_error));
+            break; }// Schleife vorzeitig beenden
+           else {
+            RCLCPP_INFO(this->get_logger(), "Present [ID: %i] ", i);
+          }     
           }
           break;
         }
@@ -301,6 +374,34 @@ int main(int argc, char * argv[])
   setupDynamixel(BROADCAST_ID);
 
   rclcpp::init(argc, argv);
+
+  for (int m =1; m<=3; m++){
+            dxl_comm_result =
+                    packetHandler->write2ByteTxRx(    
+                      portHandler,
+                      m,
+                      ADDR_VEL_I_GAIN,
+                      0,                          
+                      &dxl_error
+                    );
+            dxl_comm_result =
+            packetHandler->write2ByteTxRx(    
+              portHandler,
+              m,
+              ADDR_VEL_P_GAIN,
+              0,                          
+              &dxl_error
+            );
+            dxl_comm_result =
+                  packetHandler->write2ByteTxRx(    
+                    portHandler,
+                    m,
+                    ADDR_POS_D_GAIN,
+                    0,
+                    &dxl_error
+                  );
+    RCLCPP_INFO(rclcpp::get_logger("COMMOT"), "Succeeded to zero Vel-Gains and D-Gain of ID %i.", m);
+  } 
 
   auto commot_start = std::make_shared<commot>();
   rclcpp::spin(commot_start);

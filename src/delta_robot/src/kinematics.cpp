@@ -39,23 +39,24 @@ float maxangle = 90.0;
 //?------forward kinematics-------
 //? input the current angles theta of the motors 1,2,3 and return the current position of the endeffector (poseff)
 std::array<float, 3> fwdkin(int motpos1, int motpos2, int motpos3) {
+
     float t = (f-e)*tan30/2; //Delta of the distance from the base (f) and effector (e) sides to z axis (common centerpoint of the triangles in start position)
     
-    float theta1 = -dtr*((motpos1*(1/deg2pulse))-270);   
+    float theta1 = -dtr*((motpos1*(1/deg2pulse))-270);  
     float theta2 = -dtr*((motpos2*(1/deg2pulse))-270);
     float theta3 = -dtr*((motpos3*(1/deg2pulse))-270);      
 
     //Calculation of the joint positions with joint1 in the yz-plane and the other arms 30° rotated to relative to the x-axis
-    float y1 = -(t + rf*cos(theta1));
-    float z1 = -rf*sin(theta1);
+    float  y1 = -(t + lf*cos(theta1));
+    float z1 = -lf*sin(theta1);
     
-    float y2 = (t + rf*cos(theta2))*sin30;
-    float x2 = y2*tan60;
-    float z2 = -rf*sin(theta2);
+    float y2 = (t + lf*cos(theta2))*sin30;
+    float  x2 = y2*tan60;
+    float z2 = -lf*sin(theta2);
     
-    float y3 = (t + rf*cos(theta3))*sin30;
+    float y3 = (t + lf*cos(theta3))*sin30;
     float x3 = -y3*tan60;
-    float z3 = -rf*sin(theta3);
+    float z3 = -lf*sin(theta3);
     
     //*One spheres around each joint with radius re  >>> (sphere1-sphere2) & (sphere1-sphere3) & (sphere2-sphere3) 
     //* >>> isolate y and x in (s2-s3) seperately >>> substitute y in (s1-32) to get x (I) & substitute x in (s1-s3) to get y (II)
@@ -76,14 +77,15 @@ std::array<float, 3> fwdkin(int motpos1, int motpos2, int motpos3) {
     //* Substitute y and x in the equation for sphere1 and solve the resulting quadratic equation to get z
     float a = a1*a1 + a2*a2 + dnm*dnm;
     float b = 2*(a1*b1 + a2*(b2-y1*dnm) - z1*dnm*dnm);
-    float c = -(b2-y1*dnm)*(b2-y1*dnm) + b1*b1 + dnm*dnm*(z1*z1 - re*re); //! - gehört da laut code eigentlich nicht hin => aber so funktionierts(optisc) tatsächlich
+    float c = (b2-y1*dnm)*(b2-y1*dnm) + b1*b1 + dnm*dnm*(z1*z1 - le*le); //! - gehört da laut code eigentlich nicht hin => aber so funktionierts(optisc) tatsächlich UND VERÄNDERT Z  TWIST ZU FALSCHEN WERTEN
   
     // discriminant
     float d = b*b - (float)4.0*a*c;
-    if (d < 0) return prevposition; // non-existing point
-
+    if (d < 0) return {a,b,c}; // non-existing point
+   // In der Funktion fwdkin():
+   
     //resulting coords of the effector
-    float zeff = -(float)0.5*(b+sqrt(d))/a;
+    float zeff = -0.5*(b+sqrt(d))/a;
     float xeff = (a1*zeff + b1)/dnm;
     float yeff = (a2*zeff + b2)/dnm;
    
@@ -91,16 +93,18 @@ std::array<float, 3> fwdkin(int motpos1, int motpos2, int motpos3) {
     prevposition [1] = theta2;
     prevposition [2] = -zeff;
     
+   
+   if (abs(xeff) < 50){
+      xeff = 0;
+   }
+   if (abs(yeff) < 50){
+      yeff = 0;
+   }
+   
     poseff[0] = xeff;
     poseff[1] = yeff;
     poseff[2] = -zeff;
-   /*
-    poseff[0] = a;
-    poseff[1] = c;
-    poseff[2] = c;
-*/
-    
-
+ 
     return poseff;
 }
 

@@ -3,6 +3,10 @@
 
 #include <array>
 
+
+
+
+
 // Konstanten
 #define PI 3.14159265
 #define dtr 0.017453293
