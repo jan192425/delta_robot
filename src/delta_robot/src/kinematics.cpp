@@ -77,32 +77,32 @@ std::array<float, 3> fwdkin(int motpos1, int motpos2, int motpos3) {
     //* Substitute y and x in the equation for sphere1 and solve the resulting quadratic equation to get z
     float a = a1*a1 + a2*a2 + dnm*dnm;
     float b = 2*(a1*b1 + a2*(b2-y1*dnm) - z1*dnm*dnm);
-    float c = (b2-y1*dnm)*(b2-y1*dnm) + b1*b1 + dnm*dnm*(z1*z1 - le*le); //! - gehört da laut code eigentlich nicht hin => aber so funktionierts(optisc) tatsächlich UND VERÄNDERT Z  TWIST ZU FALSCHEN WERTEN
+    float c = (b2-y1*dnm)*(b2-y1*dnm) + b1*b1 + dnm*dnm*(z1*z1 - le*le); 
   
     // discriminant
     float d = b*b - (float)4.0*a*c;
-    if (d < 0) return {a,b,c}; // non-existing point
-   // In der Funktion fwdkin():
+    if (d < 0) return prevposition; // if current calculation of end-effector position is somehow false return previous calculated position back to OPMOD node
+   
    
     //resulting coords of the effector
     float zeff = -0.5*(b+sqrt(d))/a;
     float xeff = (a1*zeff + b1)/dnm;
     float yeff = (a2*zeff + b2)/dnm;
    
-    prevposition [0] = theta1;
-    prevposition [1] = theta2;
+    prevposition [0] = 0.003*xeff;
+    prevposition [1] = 0.003*yeff;
     prevposition [2] = -zeff;
     
-   
-   if (abs(xeff) < 50){
+   //Twist is 0 when the deflection in x or y is greater than 3 cm => otherwise robot will not stand still since there will always be little deflection
+   if (abs(xeff) < 30){ 
       xeff = 0;
    }
-   if (abs(yeff) < 50){
+   if (abs(yeff) < 30){
       yeff = 0;
    }
    
-    poseff[0] = xeff;
-    poseff[1] = yeff;
+    poseff[0] = 0.003*xeff; //factor controlls speed of the mobile robot
+    poseff[1] = 0.003*yeff;
     poseff[2] = -zeff;
  
     return poseff;
@@ -146,14 +146,7 @@ int (&invkin(float xeff, float yeff, float zeff))[3][3]{
      prevangle [0] = theta1;
      prevangle [1] = theta2;
      prevangle [2] = theta3;
-
-     /*
-     theta1 = ((theta1/dtr)/0.088);
-     theta2 = ((theta2/dtr)/0.088);
-     theta3 = ((theta3/dtr)/0.088);
-        */
-
-       
+      
      float angle1 = ((-theta1+270.0)*deg2pulse); //+270 so that negative motorpoitions (0...4095) are avoided
      float angle2 = ((-theta2+270.0)*deg2pulse); 
      float angle3 = ((-theta3+270.0)*deg2pulse);
@@ -161,11 +154,6 @@ int (&invkin(float xeff, float yeff, float zeff))[3][3]{
      int posmotor1 = static_cast<int>(round(angle1));
      int posmotor2 = static_cast<int>(round(angle2));
      int posmotor3 = static_cast<int>(round(angle3));
-
-    //! max Winkel 300 => 3409
-
-     //int posmotor2 = (int)angle2;
-     //int posmotor3 = (int)angle3;
 
      invout[0][1] = posmotor1;
      invout[1][1] = posmotor2;

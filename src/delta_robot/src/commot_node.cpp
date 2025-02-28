@@ -18,7 +18,7 @@
 #include "delta_robot_interfaces/msg/op_mod.hpp"
 
 
-// Control table address for X series (except XL-320)
+// Control table address for X series 
 #define ADDR_OPERATING_MODE 11
 #define ADDR_TORQUE_ENABLE 64
 #define ADDR_GOAL_POSITION 116
@@ -56,6 +56,8 @@ commot::commot(): Node("COMMOT")
     const auto QOS_RKL10V =
         rclcpp::QoS(rclcpp::KeepLast(qos_depth)).reliable().durability_volatile();
     
+
+
     //?Goal Position setting and logging (topic based)
     set_position_subscriber_ =
     this->create_subscription<SetPosition>(
@@ -66,7 +68,6 @@ commot::commot(): Node("COMMOT")
       uint8_t dxl_error = 0;
 
       // Position Value of X series is 4 byte data.
-      // For AX & MX(1.0) use 2 byte data(uint16_t) for the Position Value.
       uint32_t goal_position = (unsigned int)msg->position;  // Convert int32 -> uint32
 
       //* Write Goal Position (length : 4 bytes)
@@ -128,8 +129,6 @@ commot::commot(): Node("COMMOT")
     //? + adaptive Veränderung der Reglerparameter (linear => ähnlich Feder ODER vllt auch eine nicht lineare Funktion => könnte so den die äußeren Bereiche lange weich lassen)
     //? konstante Reibungskompensation aufschalten 
 
-    //TODO: 1.Umsetungsidee: adaptiver P-Regler wobei Kp(e) = 1000/((e-2)^0,75) mit der Regelabweichung e (in increment) ist
-    
     OpMod_subscriber_ =
     this->create_subscription<delta_robot_interfaces::msg::OpMod>(
     "OpMod",
@@ -177,8 +176,8 @@ commot::commot(): Node("COMMOT")
         }
 
         case 1 : {                   //compliant
-           //TODO: fwdkinout von Bezugsposition abziehen (falls möglich fallunterscheidung ob vor compliant mode pointnav genutzt wurde => wenn ja dann Bezugsposition = alt GoalPos Pointnav ANSONSTEN FESTERWERT)
-           //uint32_t  home_position = 2692;
+  
+          //*the home position of the robot for the compliant mode is chosen to the effector position of xeff=0, yeff=0 und z=300 => resulting in the 2692. Increment for all 3 motors 
           int home_position = 2692;
 
           for (int i =1; i<=3; i++){ 
@@ -210,37 +209,16 @@ commot::commot(): Node("COMMOT")
           RCLCPP_INFO(rclcpp::get_logger("COMMOT"), "Succeeded to zero D-Gains and setting home position of all 3");
 
 
-          //auto start_time = std::chrono::steady_clock::now();
+          for (int i =1; i<=3; i++){
 
 
-          for (int i =1; i<=3; i++){                            //sequential setting of Motor control paramaters
+          //! The code that is commented out below describes the adaptive motor gain control. The code works BUT there is a reliability issue when commot and opmod node are running.
+          //! The problem appears to be realted to the high data traffic. Then packages might get lost between motor and the nodes which results in for-loops which arent't broken. 
+          //! In the end this results in the ros2 node error "stack smash" which causes the node to crash.
+          //! Antoher possibility is that the usage of a virtual machine is the root of the problem.
+
+          //! Therefore the code which is commented out could be described as "experimental" but currently not robust.                         
           /*
-          dxl_comm_result =
-                  packetHandler->write2ByteTxRx(    
-                    portHandler,
-                    i,
-                    ADDR_POS_D_GAIN,
-                    0,
-                    &dxl_error
-                  );
-          if (dxl_comm_result != COMM_SUCCESS) {
-            RCLCPP_WARN(this->get_logger(), "Error with zeroing D-Gain of motor %d, breaking loop", i);
-            break; }// Schleife vorzeitig beenden
-          //die ursprungsposition für den compliant mode ist die effektor position xeff=0, yeff=0 und z=300 => resultiert für alle 3 Motoren auf dem 2692. Inkrement
-        
-          dxl_comm_result =
-            packetHandler->write4ByteTxRx(    
-            portHandler,
-            i,
-            ADDR_GOAL_POSITION,
-            home_position,
-            &dxl_error
-          );
-          if (dxl_comm_result != COMM_SUCCESS) {
-            RCLCPP_WARN(this->get_logger(), "Error with writing Goal Position to motor %d, breaking loop", i);
-            break; }// Schleife vorzeitig beenden
-          
-
           uint32_t present_position_i = 0;
           //reading present positions of the 3 motors
           dxl_comm_result = packetHandler->read4ByteTxRx(
@@ -268,10 +246,8 @@ commot::commot(): Node("COMMOT")
 
           RCLCPP_INFO(this->get_logger(), "Present [ID: %i] [e: %i]", i, e);
           float maxkp = 200.0;
-          //float kpc = 1000/(pow(static_cast<double>(abs(e)-1),0.4));
-          //float kpc = 0.001*(pow(static_cast<double>(abs(e)-150)+25,2));
-          //float kpc = (abs(e) > 30) ? 1000 / (pow(static_cast<double>(abs(e)), 0.50)) : (maxkp-75);
-          //float kpc = (abs(e) > 0) ? 1.5*(pow(10.0,(static_cast<double>(abs(e)))/150.0))+0.15*static_cast<double>(abs(e))+10.0 : (maxkp-180);
+          
+          //float kpc = (abs(e) > 0) ? 1.5*(pow(10.0,(static_cast<double>(abs(e)))/150.0))+0.15*static_cast<double>(abs(e))+10.0 : (maxkp-180); //? possibly better than normal linear function if parameters are set correctly
                    
           float kpc = (e > 0) ? 0.25*(static_cast<double>(e))+10.0 : (maxkp-180.0);     //!Beste Params bisher m=0.3 und c=10 ABER ca. 7cm Höhen abweichung
 
@@ -279,13 +255,16 @@ commot::commot(): Node("COMMOT")
             kpc = maxkp;
           }
           */
+
+          //! Since the adaptive gain control is currently not robust, the motor P-Gain is set constant to reduce the data traffic on the RS485 bus. 
+          //! The constant P-Gain allows  a compliant behaviour but with less accuracy then with adaptive gain controll
           //write new Kp to motors
           dxl_comm_result =
           packetHandler-> write2ByteTxRx(    
             portHandler,
             i,
             ADDR_POS_P_GAIN,
-            25,                          //static_cast<uint32_t>(std::round(kpc)),
+            25,                          //! if adaptive gain control ("experimental code" above) is used the 25 has to be replaced by: static_cast<uint32_t>(std::round(kpc)),
             &dxl_error
           );
           

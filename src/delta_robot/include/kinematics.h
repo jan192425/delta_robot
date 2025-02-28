@@ -3,11 +3,7 @@
 
 #include <array>
 
-
-
-
-
-// Konstanten
+// constants
 #define PI 3.14159265
 #define dtr 0.017453293
 #define sin30 0.5
@@ -17,7 +13,7 @@
 #define tan30 0.57735027
 #define tan60 1.7320508
 
-// Globale Variablen
+//global variables
 extern float re;
 extern float rf;
 extern float e;
@@ -29,7 +25,7 @@ extern std::array<float, 3> poseff;
 extern std::array<float, 3> prevposition;
 extern int i;
 
-// Funktionen
+// functions
 std::array<float, 3>  fwdkin(int motpos1, int motpos2, int motpos3);
 float delta_calcAngleYZ(float xeff, float yeff, float zeff, int i);
 int (&invkin(float xeff, float yeff, float zeff))[3][3];
