@@ -1,0 +1,2225 @@
+<?xml version="1.0"?>
+<sdf version='1.9'>
+  <model name='delta_robot'>
+    <joint name='base_joint' type='fixed'>
+      <pose relative_to='__model__'>0.2 0.2 1 0 0 0</pose>
+      <parent>world</parent>
+      <child>base_link</child>
+    </joint>
+    <link name='base_link'>
+      <pose relative_to='base_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-0.0001612248346988456 0.0005522938247699926 0.0307961784442451 0 0 0</pose>
+        <mass>2.263391201238897</mass>
+        <inertia>
+          <ixx>0.013699240615172069</ixx>
+          <ixy>-2.8956553318737741e-06</ixy>
+          <ixz>1.0541336563790759e-06</ixz>
+          <iyy>0.013707418413198559</iyy>
+          <iyz>-2.9603162574548002e-06</iyz>
+          <izz>0.02587911249136568</izz>
+        </inertia>
+      </inertial>
+      <collision name='base_link_collision'>
+        <pose>-0.0001775152886902415 0.0005976113912661285 0 4.733165431326093e-30 1.281898970984114e-30 2.094395102393195</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/motor_mount.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='base_link_collision_1'>
+        <pose>-0.0001775152886905242 0.0005976113912659065 0 -9.466330862652142e-30 0 -2.337462495753056e-29</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/base_plate.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='base_link_collision_2'>
+        <pose>-0.0001775152886904358 0.0005976113912659411 0 5.916456789157587e-31 -2.563797941968287e-30 -2.094395102393196</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/motor_mount.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='base_link_collision_3'>
+        <pose>0.06630002508975298 -0.08425991111105835 0.04874999999999999 1.570796326794897 0 2.617993877991491</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/dc13_x540_dummy.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='base_link_collision_4'>
+        <pose>0.04007248471130954 0.1005976113912659 0.04875 1.570796326794896 0 -1.570796326794896</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/dc13_x540_dummy.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='base_link_collision_5'>
+        <pose>-0.000177515288690545 0.0005976113912659481 0 -9.466330862651929e-30 6.310887241768094e-30 -8.673617379881511e-17</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/motor_mount.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='base_link_collision_6'>
+        <pose>-0.1069050556671349 -0.01454486610640984 0.04874999999999999 1.570796326794896 0 0.5235987755983027</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/dc13_x540_dummy.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='base_link_visual'>
+        <pose>-0.0001775152886902415 0.0005976113912661285 0 4.733165431326093e-30 1.281898970984114e-30 2.094395102393195</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/motor_mount.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.661765 0.710784 0.75 1</diffuse>
+          <ambient>0.661765 0.710784 0.75 1</ambient>
+        </material>
+      </visual>
+      <visual name='base_link_visual_1'>
+        <pose>-0.0001775152886905242 0.0005976113912659065 0 -9.466330862652142e-30 0 -2.337462495753056e-29</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/base_plate.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+      <visual name='base_link_visual_2'>
+        <pose>-0.0001775152886904358 0.0005976113912659411 0 5.916456789157587e-31 -2.563797941968287e-30 -2.094395102393196</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/motor_mount.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.661765 0.710784 0.75 1</diffuse>
+          <ambient>0.661765 0.710784 0.75 1</ambient>
+        </material>
+      </visual>
+      <visual name='base_link_visual_3'>
+        <pose>0.06630002508975298 -0.08425991111105835 0.04874999999999999 1.570796326794897 0 2.617993877991491</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/dc13_x540_dummy.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.377451 0.377451 0.377451 1</diffuse>
+          <ambient>0.377451 0.377451 0.377451 1</ambient>
+        </material>
+      </visual>
+      <visual name='base_link_visual_4'>
+        <pose>0.04007248471130954 0.1005976113912659 0.04875 1.570796326794896 0 -1.570796326794896</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/dc13_x540_dummy.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.377451 0.377451 0.377451 1</diffuse>
+          <ambient>0.377451 0.377451 0.377451 1</ambient>
+        </material>
+      </visual>
+      <visual name='base_link_visual_5'>
+        <pose>-0.000177515288690545 0.0005976113912659481 0 -9.466330862651929e-30 6.310887241768094e-30 -8.673617379881511e-17</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/motor_mount.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.661765 0.710784 0.75 1</diffuse>
+          <ambient>0.661765 0.710784 0.75 1</ambient>
+        </material>
+      </visual>
+      <visual name='base_link_visual_6'>
+        <pose>-0.1069050556671349 -0.01454486610640984 0.04874999999999999 1.570796326794896 0 0.5235987755983027</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/dc13_x540_dummy.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.377451 0.377451 0.377451 1</diffuse>
+          <ambient>0.377451 0.377451 0.377451 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='motor_1' type='revolute'>
+      <pose relative_to='base_link'>0.01557248471130945 0.1005976113912659 0.04874999999999999 -1.570796326794897 0.1835764877121942 -1.5707963267949</pose>
+      <parent>base_link</parent>
+      <child>bicep_rod</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>1.570796326794897</upper>
+          <effort>2000</effort>
+          <velocity>2</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.050000000000000003</damping>
+          <friction>0.050000000000000003</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='bicep_rod'>
+      <pose relative_to='motor_1'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-0.07808196811197794 -9.025725672866032e-17 -0.01499748289392982 0 0 0</pose>
+        <mass>0.050961850551235831</mass>
+        <inertia>
+          <ixx>5.2079917158922497e-06</ixx>
+          <ixy>-1.0521852075132921e-20</ixy>
+          <ixz>-2.994417264727556e-06</ixz>
+          <iyy>0.0002416605243036785</iyy>
+          <iyz>-9.8620279913835896e-23</iyz>
+          <izz>0.00024357414644567959</izz>
+        </inertia>
+      </inertial>
+      <collision name='bicep_rod_collision'>
+        <pose>-0.1 0 -0.01575 1.570796326794896 -2.588449845256445e-31 3.293471523672226e-17</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/bicep_rod.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='bicep_rod_visual'>
+        <pose>-0.1 0 -0.01575 1.570796326794896 -2.588449845256445e-31 3.293471523672226e-17</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/bicep_rod.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='11' type='revolute'>
+      <pose relative_to='bicep_rod'>-0.2 -1.387778780781446e-17 -0.01575 -1.343125022233315e-15 -3.537121670188392e-15 -0.844987181203198</pose>
+      <parent>bicep_rod</parent>
+      <child>connecting_element</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <effort>1</effort>
+          <velocity>20</velocity>
+          <lower>-10000000000000000</lower>
+          <upper>10000000000000000</upper>
+        </limit>
+        <dynamics>
+          <damping>0.050000000000000003</damping>
+          <friction>0.050000000000000003</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='connecting_element'>
+      <pose relative_to='11'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-1.390515342721101e-08 1.336635665596689e-17 -5.01534569677618e-18 0 0 0</pose>
+        <mass>0.043235391457957517</mass>
+        <inertia>
+          <ixx>2.117953909382608e-05</ixx>
+          <ixy>1.654388519189724e-09</ixy>
+          <ixz>-7.7632988634472204e-21</ixz>
+          <iyy>2.104782635777846e-05</iyy>
+          <iyz>4.4464792328571068e-11</iyz>
+          <izz>1.0143582146042339e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='connecting_element_collision'>
+        <pose>-5.551115123125783e-17 2.775557561562891e-17 0 -3.141592653589793 -5.006515014191051e-31 2.869026201986719e-17</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/connecting_element.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='connecting_element_collision_1'>
+        <pose>-8.326672684688674e-17 -5.551115123125783e-17 -0.03274999999999988 0 -1.570796326794897 -1.895152649700051e-16</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_1.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='connecting_element_collision_2'>
+        <pose>-2.775557561562891e-17 2.775557561562891e-17 -0.01775000000000004 0 1.570796326794897 -2.480181960098779</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_3.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='connecting_element_collision_3'>
+        <pose>-2.775557561562891e-17 2.775557561562891e-17 -0.02015000000000002 0 -1.570796326794897 0.661410693491019</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_2.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='connecting_element_collision_4'>
+        <pose>-5.551115123125783e-17 2.775557561562891e-17 0.03274999999999987 0 1.570796326794897 -3.141592653589793</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_1.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='connecting_element_collision_5'>
+        <pose>-2.775557561562891e-17 2.775557561562891e-17 0.01775000000000003 0 -1.570796326794897 -2.480181960098776</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_3.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='connecting_element_collision_6'>
+        <pose>-2.775557561562891e-17 2.775557561562891e-17 0.02015 0 1.570796326794897 0.6614106934910186</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_2.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='connecting_element_visual'>
+        <pose>-5.551115123125783e-17 2.775557561562891e-17 0 -3.141592653589793 -5.006515014191051e-31 2.869026201986719e-17</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/connecting_element.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.75 0.75 0.75 1</diffuse>
+          <ambient>0.75 0.75 0.75 1</ambient>
+        </material>
+      </visual>
+      <visual name='connecting_element_visual_1'>
+        <pose>-8.326672684688674e-17 -5.551115123125783e-17 -0.03274999999999988 0 -1.570796326794897 -1.895152649700051e-16</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_1.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+      <visual name='connecting_element_visual_2'>
+        <pose>-2.775557561562891e-17 2.775557561562891e-17 -0.01775000000000004 0 1.570796326794897 -2.480181960098779</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_3.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.808824 0.808824 0.808824 1</diffuse>
+          <ambient>0.808824 0.808824 0.808824 1</ambient>
+        </material>
+      </visual>
+      <visual name='connecting_element_visual_3'>
+        <pose>-2.775557561562891e-17 2.775557561562891e-17 -0.02015000000000002 0 -1.570796326794897 0.661410693491019</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_2.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.75 0.75 0.75 1</diffuse>
+          <ambient>0.75 0.75 0.75 1</ambient>
+        </material>
+      </visual>
+      <visual name='connecting_element_visual_4'>
+        <pose>-5.551115123125783e-17 2.775557561562891e-17 0.03274999999999987 0 1.570796326794897 -3.141592653589793</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_1.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+      <visual name='connecting_element_visual_5'>
+        <pose>-2.775557561562891e-17 2.775557561562891e-17 0.01775000000000003 0 -1.570796326794897 -2.480181960098776</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_3.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.808824 0.808824 0.808824 1</diffuse>
+          <ambient>0.808824 0.808824 0.808824 1</ambient>
+        </material>
+      </visual>
+      <visual name='connecting_element_visual_6'>
+        <pose>-2.775557561562891e-17 2.775557561562891e-17 0.02015 0 1.570796326794897 0.6614106934910186</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_2.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.75 0.75 0.75 1</diffuse>
+          <ambient>0.75 0.75 0.75 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='12' type='revolute'>
+      <pose relative_to='connecting_element'>6.605826996519681e-15 0.002999999999999559 0.0327499999999999 -1.570796326794897 1.570796326794897 0</pose>
+      <parent>connecting_element</parent>
+      <child>forarm_rod</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <effort>1</effort>
+          <velocity>20</velocity>
+          <lower>-10000000000000000</lower>
+          <upper>10000000000000000</upper>
+        </limit>
+        <dynamics>
+          <damping>0.050000000000000003</damping>
+          <friction>0.050000000000000003</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='forarm_rod'>
+      <pose relative_to='12'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>1.338089576209312e-17 -0.15 -0.002999999999999978 0 0 0</pose>
+        <mass>0.02308013519093027</mass>
+        <inertia>
+          <ixx>0.0001790752607307609</ixx>
+          <ixy>-1.7841365676780891e-35</ixy>
+          <ixz>-2.6158934878582789e-35</ixz>
+          <iyy>3.4754053482994271e-07</iyy>
+          <iyz>3.3312167309682231e-21</iyz>
+          <izz>0.00017928432045444519</izz>
+        </inertia>
+      </inertial>
+      <collision name='forarm_rod_collision'>
+        <pose>2.081668171172169e-17 -0.15 -0.005999999999999978 -1.570796326794896 1.048559477553872e-31 -9.965903823377331e-32</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/forarm_rod.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='forarm_rod_visual'>
+        <pose>2.081668171172169e-17 -0.15 -0.005999999999999978 -1.570796326794896 1.048559477553872e-31 -9.965903823377331e-32</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/forarm_rod.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='14' type='revolute'>
+      <pose relative_to='forarm_rod'>0 -0.3 0 -3.141592653589793 1.740368768366112e-15 -2.618224693926866e-15</pose>
+      <parent>forarm_rod</parent>
+      <child>connecting_element_half</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <effort>1</effort>
+          <velocity>20</velocity>
+          <lower>-10000000000000000</lower>
+          <upper>10000000000000000</upper>
+        </limit>
+        <dynamics>
+          <damping>0.050000000000000003</damping>
+          <friction>0.050000000000000003</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='connecting_element_half'>
+      <pose relative_to='14'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.0128646317575684 -1.39051533011173e-08 0.003000064687584137 0 0 0</pose>
+        <mass>0.021617696728978762</mass>
+        <inertia>
+          <ixx>5.0717910721166878e-07</ixx>
+          <ixy>6.6564614349273319e-13</ixy>
+          <ixz>-5.5752347028774129e-12</ixz>
+          <iyy>2.0415297720126058e-06</iyy>
+          <iyz>-8.3494347216414071e-10</iyz>
+          <izz>1.9756734040792129e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='connecting_element_half_collision'>
+        <pose>0.022375 -2.775557561562891e-17 0.002999999999999975 1.570796326794896 0 1.570796326794896</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/connecting_element_half.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='connecting_element_half_collision_1'>
+        <pose>0 1.387778780781446e-17 0.00300000000000003 1.570796326794897 1.004015194007655e-31 -3.890242460298701e-31</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_1.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='connecting_element_half_collision_2'>
+        <pose>0.01500000000000019 -2.275957200481571e-15 0.002999999999999781 2.232207020285914 1.469555212095263e-15 3.141592653589792</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_3.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='connecting_element_half_collision_3'>
+        <pose>0.01260000000000019 -2.275957200481571e-15 0.002999999999999781 -2.232207020285914 -1.469555212095263e-15 -1.059287950767646e-15</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_2.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='connecting_element_half_visual'>
+        <pose>0.022375 -2.775557561562891e-17 0.002999999999999975 1.570796326794896 0 1.570796326794896</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/connecting_element_half.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.75 0.75 0.75 1</diffuse>
+          <ambient>0.75 0.75 0.75 1</ambient>
+        </material>
+      </visual>
+      <visual name='connecting_element_half_visual_1'>
+        <pose>0 1.387778780781446e-17 0.00300000000000003 1.570796326794897 1.004015194007655e-31 -3.890242460298701e-31</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_1.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+      <visual name='connecting_element_half_visual_2'>
+        <pose>0.01500000000000019 -2.275957200481571e-15 0.002999999999999781 2.232207020285914 1.469555212095263e-15 3.141592653589792</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_3.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.808824 0.808824 0.808824 1</diffuse>
+          <ambient>0.808824 0.808824 0.808824 1</ambient>
+        </material>
+      </visual>
+      <visual name='connecting_element_half_visual_3'>
+        <pose>0.01260000000000019 -2.275957200481571e-15 0.002999999999999781 -2.232207020285914 -1.469555212095263e-15 -1.059287950767646e-15</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_2.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.75 0.75 0.75 1</diffuse>
+          <ambient>0.75 0.75 0.75 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='arm_1_effector' type='revolute'>
+      <pose relative_to='connecting_element_half'>0.03275000000000017 -2.275957200481571e-15 0.002999999999999808 -1.570796326794895 -0.6614106934910174 -1.5707963267949</pose>
+      <parent>connecting_element_half</parent>
+      <child>end_effector_base_v02</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <effort>1</effort>
+          <velocity>20</velocity>
+          <lower>-10000000000000000</lower>
+          <upper>10000000000000000</upper>
+        </limit>
+        <dynamics>
+          <damping>0.050000000000000003</damping>
+          <friction>0.050000000000000003</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='end_effector_base_v02'>
+      <pose relative_to='arm_1_effector'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-0.035 -6.024989476683334e-20 1.458191373444177e-18 0 0 0</pose>
+        <mass>0.033747641557297363</mass>
+        <inertia>
+          <ixx>9.0363106741571845e-06</ixx>
+          <ixy>-1.2305700171768461e-36</ixy>
+          <ixz>-1.207406205070246e-36</ixz>
+          <iyy>1.736746009246442e-05</iyy>
+          <iyz>7.7074291904525726e-38</iyz>
+          <izz>9.0363106741571845e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='end_effector_base_v02_collision'>
+        <pose>-0.035 0 3.469446951953614e-18 0 1.570796326794897 -1.570796326794897</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/end_effector_base_v02.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='end_effector_base_v02_visual'>
+        <pose>-0.035 0 3.469446951953614e-18 0 1.570796326794897 -1.570796326794897</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/end_effector_base_v02.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='arm_2_effector' type='revolute'>
+      <pose relative_to='end_effector_base_v02'>-0.05250000000000171 -1.443289932012704e-15 0.03031088913245512 2.446132894313867 0.8615713048640968 -0.8328638440190744</pose>
+      <parent>end_effector_base_v02</parent>
+      <child>connecting_element_2</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <effort>1</effort>
+          <velocity>20</velocity>
+          <lower>-10000000000000000</lower>
+          <upper>10000000000000000</upper>
+        </limit>
+        <dynamics>
+          <damping>0.050000000000000003</damping>
+          <friction>0.050000000000000003</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='connecting_element_2'>
+      <pose relative_to='arm_2_effector'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-1.390515339112228e-08 -3.880783541029467e-16 -4.071833787570161e-16 0 0 0</pose>
+        <mass>0.043235391457957517</mass>
+        <inertia>
+          <ixx>2.1179058597939081e-05</ixx>
+          <ixy>1.4766654218388269e-09</ixy>
+          <ixz>-4.8233822402633363e-21</ixz>
+          <iyy>2.104830685366554e-05</iyy>
+          <iyz>4.4464792318310223e-11</iyz>
+          <izz>1.0143582146042541e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='connecting_element_2_collision'>
+        <pose>1.387778780781446e-17 0 0 3.141592653589793 -8.122319102222896e-17 7.516766877920475e-18</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/connecting_element.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='connecting_element_2_collision_1'>
+        <pose>1.387778780781446e-17 0 -0.03275 0 -1.570796326794897 -3.425691856500771e-17</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_1.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='connecting_element_2_collision_2'>
+        <pose>-1.387778780781446e-16 -1.609823385706477e-15 -0.01775000000000161 0 1.570796326794897 -2.597138703044942</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_3.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='connecting_element_2_collision_3'>
+        <pose>-1.249000902703301e-16 -1.609823385706477e-15 -0.0201500000000016 0 -1.570796326794897 0.5444539505448527</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_2.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='connecting_element_2_collision_4'>
+        <pose>4.163336342344337e-17 5.551115123125783e-17 0.03275 0 1.570796326794897 -3.141592653589793</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_1.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='connecting_element_2_collision_5'>
+        <pose>-1.665334536937735e-16 -1.609823385706477e-15 0.01774999999999839 0 -1.570796326794897 -2.073539927446613</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_3.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='connecting_element_2_collision_6'>
+        <pose>-1.804112415015879e-16 -1.582067810090848e-15 0.02014999999999838 0 1.570796326794897 1.068052726143183</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_2.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='connecting_element_2_visual'>
+        <pose>1.387778780781446e-17 0 0 3.141592653589793 -8.122319102222896e-17 7.516766877920475e-18</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/connecting_element.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.75 0.75 0.75 1</diffuse>
+          <ambient>0.75 0.75 0.75 1</ambient>
+        </material>
+      </visual>
+      <visual name='connecting_element_2_visual_1'>
+        <pose>1.387778780781446e-17 0 -0.03275 0 -1.570796326794897 -3.425691856500771e-17</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_1.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+      <visual name='connecting_element_2_visual_2'>
+        <pose>-1.387778780781446e-16 -1.609823385706477e-15 -0.01775000000000161 0 1.570796326794897 -2.597138703044942</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_3.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.808824 0.808824 0.808824 1</diffuse>
+          <ambient>0.808824 0.808824 0.808824 1</ambient>
+        </material>
+      </visual>
+      <visual name='connecting_element_2_visual_3'>
+        <pose>-1.249000902703301e-16 -1.609823385706477e-15 -0.0201500000000016 0 -1.570796326794897 0.5444539505448527</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_2.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.75 0.75 0.75 1</diffuse>
+          <ambient>0.75 0.75 0.75 1</ambient>
+        </material>
+      </visual>
+      <visual name='connecting_element_2_visual_4'>
+        <pose>4.163336342344337e-17 5.551115123125783e-17 0.03275 0 1.570796326794897 -3.141592653589793</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_1.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+      <visual name='connecting_element_2_visual_5'>
+        <pose>-1.665334536937735e-16 -1.609823385706477e-15 0.01774999999999839 0 -1.570796326794897 -2.073539927446613</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_3.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.808824 0.808824 0.808824 1</diffuse>
+          <ambient>0.808824 0.808824 0.808824 1</ambient>
+        </material>
+      </visual>
+      <visual name='connecting_element_2_visual_6'>
+        <pose>-1.804112415015879e-16 -1.582067810090848e-15 0.02014999999999838 0 1.570796326794897 1.068052726143183</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_2.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.75 0.75 0.75 1</diffuse>
+          <ambient>0.75 0.75 0.75 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='22' type='revolute'>
+      <pose relative_to='connecting_element_2'>5.551115123125783e-17 0.003000000000000058 0.03275000000000002 -1.570796326794898 -1.49884994123495 5.868938818216982e-14</pose>
+      <parent>connecting_element_2</parent>
+      <child>forarm_rod_half</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <effort>1</effort>
+          <velocity>20</velocity>
+          <lower>-10000000000000000</lower>
+          <upper>10000000000000000</upper>
+        </limit>
+        <dynamics>
+          <damping>0.050000000000000003</damping>
+          <friction>0.050000000000000003</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='forarm_rod_half'>
+      <pose relative_to='22'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-2.363380646029253e-17 -0.07376136588429801 -0.002999999999999975 0 0 0</pose>
+        <mass>0.01154006859546512</mass>
+        <inertia>
+          <ixx>2.2462951176652571e-05</ixx>
+          <ixy>-5.2899101450268699e-22</ixy>
+          <ixz>-1.662241890700589e-22</ixz>
+          <iyy>1.7377026741497069e-07</iyy>
+          <iyz>-1.6940658945086011e-21</iyz>
+          <izz>2.2567481038494769e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='forarm_rod_half_collision'>
+        <pose>-3.122502256758253e-17 -0.15 -0.005999999999999978 -1.570796326794896 -4.01985891251882e-17 -2.431448162720562e-17</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/forarm_rod_half.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='forarm_rod_half_visual'>
+        <pose>-3.122502256758253e-17 -0.15 -0.005999999999999978 -1.570796326794896 -4.01985891251882e-17 -2.431448162720562e-17</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/forarm_rod_half.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='23' type='revolute'>
+      <pose relative_to='connecting_element_2'>-1.720845688168993e-15 0.003000000000000225 -0.03274999999999723 -1.570796326794897 -1.498849941234954 0</pose>
+      <parent>connecting_element_2</parent>
+      <child>forarm_rod_half_2</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <effort>1</effort>
+          <velocity>20</velocity>
+          <lower>-10000000000000000</lower>
+          <upper>10000000000000000</upper>
+        </limit>
+        <dynamics>
+          <damping>0.050000000000000003</damping>
+          <friction>0.050000000000000003</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='forarm_rod_half_2'>
+      <pose relative_to='23'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>5.29204402392665e-18 -0.07376136588429796 -0.002999999999999957 0 0 0</pose>
+        <mass>0.01154006859546512</mass>
+        <inertia>
+          <ixx>2.2462951176652571e-05</ixx>
+          <ixy>-1.371320033534814e-21</ixy>
+          <ixz>2.3866251476581499e-21</ixz>
+          <iyy>1.7377026741497059e-07</iyy>
+          <iyz>2.1175823681357508e-21</iyz>
+          <izz>2.2567481038494739e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='forarm_rod_half_2_collision'>
+        <pose>6.938893903907228e-18 -0.15 -0.00599999999999995 -1.570796326794897 -2.118114301363001e-17 -6.083551528342963e-17</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/forarm_rod_half.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='forarm_rod_half_2_visual'>
+        <pose>6.938893903907228e-18 -0.15 -0.00599999999999995 -1.570796326794897 -2.118114301363001e-17 -6.083551528342963e-17</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/forarm_rod_half.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='arm_3_effector' type='revolute'>
+      <pose relative_to='end_effector_base_v02'>-0.05250000000000164 -1.554312234475219e-15 -0.03031088913245559 2.446132894313854 0.8615713048640895 2.308728809570704</pose>
+      <parent>end_effector_base_v02</parent>
+      <child>connecting_element_3</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <effort>1</effort>
+          <velocity>20</velocity>
+          <lower>-10000000000000000</lower>
+          <upper>10000000000000000</upper>
+        </limit>
+        <dynamics>
+          <damping>0.050000000000000003</damping>
+          <friction>0.050000000000000003</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='connecting_element_3'>
+      <pose relative_to='arm_3_effector'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-1.390515345263336e-08 3.779537298947578e-16 3.209821245936755e-16 0 0 0</pose>
+        <mass>0.043235391457957517</mass>
+        <inertia>
+          <ixx>2.117781058215824e-05</ixx>
+          <ixy>6.8496131922495955e-10</ixy>
+          <ixz>9.5196961290653161e-21</ixz>
+          <iyy>2.1049554869446381e-05</iyy>
+          <iyz>4.4464792356872129e-11</iyz>
+          <izz>1.0143582146042549e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='connecting_element_3_collision'>
+        <pose>-2.775557561562891e-17 -5.551115123125783e-17 0 3.141592653589793 5.211670287336146e-17 -1.974823483887824e-17</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/connecting_element.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='connecting_element_3_collision_1'>
+        <pose>-1.387778780781446e-17 -2.775557561562891e-17 -0.03275 0 -1.570796326794897 -1.974823483887824e-17</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_1.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='connecting_element_3_collision_2'>
+        <pose>-2.498001805406602e-16 1.665334536937735e-15 -0.01774999999999872 0 1.570796326794897 -2.073539927446564</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_3.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='connecting_element_3_collision_3'>
+        <pose>-2.498001805406602e-16 1.665334536937735e-15 -0.02014999999999872 0 -1.570796326794897 1.068052726143231</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_2.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='connecting_element_3_collision_4'>
+        <pose>-5.551115123125783e-17 -1.110223024625157e-16 0.03275 0 1.570796326794897 3.141592653589793</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_1.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='connecting_element_3_collision_5'>
+        <pose>-2.081668171172169e-16 1.720845688168993e-15 0.01775000000000126 0 -1.570796326794897 -1.549941151848233</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_3.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='connecting_element_3_collision_6'>
+        <pose>-2.081668171172169e-16 1.720845688168993e-15 0.02015000000000127 0 1.570796326794897 1.591651501741562</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_2.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='connecting_element_3_visual'>
+        <pose>-2.775557561562891e-17 -5.551115123125783e-17 0 3.141592653589793 5.211670287336146e-17 -1.974823483887824e-17</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/connecting_element.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.75 0.75 0.75 1</diffuse>
+          <ambient>0.75 0.75 0.75 1</ambient>
+        </material>
+      </visual>
+      <visual name='connecting_element_3_visual_1'>
+        <pose>-1.387778780781446e-17 -2.775557561562891e-17 -0.03275 0 -1.570796326794897 -1.974823483887824e-17</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_1.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+      <visual name='connecting_element_3_visual_2'>
+        <pose>-2.498001805406602e-16 1.665334536937735e-15 -0.01774999999999872 0 1.570796326794897 -2.073539927446564</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_3.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.808824 0.808824 0.808824 1</diffuse>
+          <ambient>0.808824 0.808824 0.808824 1</ambient>
+        </material>
+      </visual>
+      <visual name='connecting_element_3_visual_3'>
+        <pose>-2.498001805406602e-16 1.665334536937735e-15 -0.02014999999999872 0 -1.570796326794897 1.068052726143231</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_2.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.75 0.75 0.75 1</diffuse>
+          <ambient>0.75 0.75 0.75 1</ambient>
+        </material>
+      </visual>
+      <visual name='connecting_element_3_visual_4'>
+        <pose>-5.551115123125783e-17 -1.110223024625157e-16 0.03275 0 1.570796326794897 3.141592653589793</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_1.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+      <visual name='connecting_element_3_visual_5'>
+        <pose>-2.081668171172169e-16 1.720845688168993e-15 0.01775000000000126 0 -1.570796326794897 -1.549941151848233</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_3.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.808824 0.808824 0.808824 1</diffuse>
+          <ambient>0.808824 0.808824 0.808824 1</ambient>
+        </material>
+      </visual>
+      <visual name='connecting_element_3_visual_6'>
+        <pose>-2.081668171172169e-16 1.720845688168993e-15 0.02015000000000127 0 1.570796326794897 1.591651501741562</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_2.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.75 0.75 0.75 1</diffuse>
+          <ambient>0.75 0.75 0.75 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='32' type='revolute'>
+      <pose relative_to='connecting_element_3'>-6.38378239159465e-16 0.003000000000000086 -0.03274999999999895 1.570796326794897 1.498849941234934 -3.141592653589793</pose>
+      <parent>connecting_element_3</parent>
+      <child>forarm_rod_half_3</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <effort>1</effort>
+          <velocity>20</velocity>
+          <lower>-10000000000000000</lower>
+          <upper>10000000000000000</upper>
+        </limit>
+        <dynamics>
+          <damping>0.050000000000000003</damping>
+          <friction>0.050000000000000003</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='forarm_rod_half_3'>
+      <pose relative_to='32'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>9.806314322797999e-18 -0.07376136588429796 -0.003000000000000035 0 0 0</pose>
+        <mass>0.01154006859546512</mass>
+        <inertia>
+          <ixx>2.2462951176652571e-05</ixx>
+          <ixy>1.016812505423587e-21</ixy>
+          <ixz>8.3392507136992719e-23</ixz>
+          <iyy>1.7377026741497069e-07</iyy>
+          <iyz>-1.2705494208814511e-21</iyz>
+          <izz>2.2567481038494749e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='forarm_rod_half_3_collision'>
+        <pose>6.938893903907228e-18 -0.15 -0.006000000000000033 -1.570796326794896 -2.007749754287869e-17 4.499002973905958e-17</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/forarm_rod_half.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='forarm_rod_half_3_visual'>
+        <pose>6.938893903907228e-18 -0.15 -0.006000000000000033 -1.570796326794896 -2.007749754287869e-17 4.499002973905958e-17</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/forarm_rod_half.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='33' type='revolute'>
+      <pose relative_to='connecting_element_3'>-5.551115123125783e-17 0.002999999999999919 0.03275 1.570796326794899 1.498849941234937 3.141592653589772</pose>
+      <parent>connecting_element_3</parent>
+      <child>forarm_rod_half_4</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <effort>1</effort>
+          <velocity>20</velocity>
+          <lower>-10000000000000000</lower>
+          <upper>10000000000000000</upper>
+        </limit>
+        <dynamics>
+          <damping>0.050000000000000003</damping>
+          <friction>0.050000000000000003</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='forarm_rod_half_4'>
+      <pose relative_to='33'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-1.630857668828407e-17 -0.07376136588429796 -0.002999999999999977 0 0 0</pose>
+        <mass>0.01154006859546512</mass>
+        <inertia>
+          <ixx>2.2462951176652571e-05</ixx>
+          <ixy>-6.3443990210132314e-22</ixy>
+          <ixz>9.7044434460678891e-22</ixz>
+          <iyy>1.7377026741497069e-07</iyy>
+          <iyz>2.1175823681357508e-21</iyz>
+          <izz>2.2567481038494739e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='forarm_rod_half_4_collision'>
+        <pose>-1.387778780781446e-17 -0.15 -0.005999999999999978 -1.570796326794896 3.387506763346282e-18 -2.796335469086332e-17</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/forarm_rod_half.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='forarm_rod_half_4_visual'>
+        <pose>-1.387778780781446e-17 -0.15 -0.005999999999999978 -1.570796326794896 3.387506763346282e-18 -2.796335469086332e-17</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/forarm_rod_half.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='13' type='revolute'>
+      <pose relative_to='connecting_element'>-2.775557561562891e-17 0.003000000000000086 -0.03274999999999987 -1.570796326794897 -1.570796326794897 0</pose>
+      <parent>connecting_element</parent>
+      <child>forarm_rod_2</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <effort>1</effort>
+          <velocity>20</velocity>
+          <lower>-10000000000000000</lower>
+          <upper>10000000000000000</upper>
+        </limit>
+        <dynamics>
+          <damping>0.050000000000000003</damping>
+          <friction>0.050000000000000003</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='forarm_rod_2'>
+      <pose relative_to='13'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>2.031978966600035e-17 0.15 -0.003000000000000033 0 0 0</pose>
+        <mass>0.02308013519093027</mass>
+        <inertia>
+          <ixx>0.0001790752607307609</ixx>
+          <ixy>-5.2000112188943069e-35</ixy>
+          <ixz>8.2102008039787268e-35</ixz>
+          <iyy>3.4754053482994261e-07</iyy>
+          <iyz>-2.2852662871276099e-21</iyz>
+          <izz>0.00017928432045444519</izz>
+        </inertia>
+      </inertial>
+      <collision name='forarm_rod_2_collision'>
+        <pose>2.775557561562891e-17 0.15 -0.006000000000000033 -1.570796326794896 -5.218823424981142e-31 -2.90897101215775e-31</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/forarm_rod.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='forarm_rod_2_visual'>
+        <pose>2.775557561562891e-17 0.15 -0.006000000000000033 -1.570796326794896 -5.218823424981142e-31 -2.90897101215775e-31</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/forarm_rod.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='15' type='revolute'>
+      <pose relative_to='forarm_rod_2'>0 0.3 -2.775557561562891e-17 -3.141592653589793 2.946114358661875e-15 -1.632503360844862e-15</pose>
+      <parent>forarm_rod_2</parent>
+      <child>connecting_element_half_2</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <effort>1</effort>
+          <velocity>20</velocity>
+          <lower>-10000000000000000</lower>
+          <upper>10000000000000000</upper>
+        </limit>
+        <dynamics>
+          <damping>0.050000000000000003</damping>
+          <friction>0.050000000000000003</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='connecting_element_half_2'>
+      <pose relative_to='15'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.0128646317575683 -1.3905152154307e-08 0.003000064687584144 0 0 0</pose>
+        <mass>0.021617696728978762</mass>
+        <inertia>
+          <ixx>5.0717910721166878e-07</ixx>
+          <ixy>6.6564601234791935e-13</ixy>
+          <ixz>-5.575234708277248e-12</ixz>
+          <iyy>2.0415297720125851e-06</iyy>
+          <iyz>8.194450470249231e-10</iyz>
+          <izz>1.975673404079193e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='connecting_element_half_2_collision'>
+        <pose>0.022375 -1.387778780781446e-17 0.00300000000000003 1.570796326794896 0 1.570796326794896</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/connecting_element_half.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='connecting_element_half_2_collision_1'>
+        <pose>0 0 0.003000000000000003 1.570796326794896 -1.322992364545227e-31 -2.905602728708132e-31</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_1.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='connecting_element_half_2_collision_2'>
+        <pose>0.01499999999999981 2.275957200481571e-15 0.002999999999999836 -2.232207020285914 -1.469555214021887e-15 3.141592653589792</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_3.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='connecting_element_half_2_collision_3'>
+        <pose>0.01259999999999981 2.289834988289385e-15 0.002999999999999836 2.232207020285914 1.469555214021887e-15 -1.059287950767662e-15</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_2.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='connecting_element_half_2_visual'>
+        <pose>0.022375 -1.387778780781446e-17 0.00300000000000003 1.570796326794896 0 1.570796326794896</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/connecting_element_half.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.75 0.75 0.75 1</diffuse>
+          <ambient>0.75 0.75 0.75 1</ambient>
+        </material>
+      </visual>
+      <visual name='connecting_element_half_2_visual_1'>
+        <pose>0 0 0.003000000000000003 1.570796326794896 -1.322992364545227e-31 -2.905602728708132e-31</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_1.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+      <visual name='connecting_element_half_2_visual_2'>
+        <pose>0.01499999999999981 2.275957200481571e-15 0.002999999999999836 -2.232207020285914 -1.469555214021887e-15 3.141592653589792</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_3.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.808824 0.808824 0.808824 1</diffuse>
+          <ambient>0.808824 0.808824 0.808824 1</ambient>
+        </material>
+      </visual>
+      <visual name='connecting_element_half_2_visual_3'>
+        <pose>0.01259999999999981 2.289834988289385e-15 0.002999999999999836 2.232207020285914 1.469555214021887e-15 -1.059287950767662e-15</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_2.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.75 0.75 0.75 1</diffuse>
+          <ambient>0.75 0.75 0.75 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='motor_2' type='revolute'>
+      <pose relative_to='base_link'>-0.09465505566713482 -0.03576248849912859 0.04874999999999999 -1.570796326794897 0.3930587606222235 0.5235987755982984</pose>
+      <parent>base_link</parent>
+      <child>bicep_rod_2</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>1.570796326794897</upper>
+          <effort>2000</effort>
+          <velocity>2</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.050000000000000003</damping>
+          <friction>0.050000000000000003</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='bicep_rod_2'>
+      <pose relative_to='motor_2'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-0.07808196811197794 -9.76987070738497e-17 -0.01499748289392983 0 0 0</pose>
+        <mass>0.050961850551235831</mass>
+        <inertia>
+          <ixx>5.2079917158922497e-06</ixx>
+          <ixy>-8.5643181671496986e-21</ixy>
+          <ixz>-2.9944172647275869e-06</ixz>
+          <iyy>0.0002416605243036785</iyy>
+          <iyz>1.4158654445393001e-20</iyz>
+          <izz>0.00024357414644567959</izz>
+        </inertia>
+      </inertial>
+      <collision name='bicep_rod_2_collision'>
+        <pose>-0.1 -6.938893903907228e-18 -0.01575000000000001 1.570796326794896 -2.920108246749048e-18 8.617356276417313e-18</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/bicep_rod.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='bicep_rod_2_visual'>
+        <pose>-0.1 -6.938893903907228e-18 -0.01575000000000001 1.570796326794896 -2.920108246749048e-18 8.617356276417313e-18</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/bicep_rod.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='21' type='revolute'>
+      <pose relative_to='bicep_rod_2'>-0.2 -5.290906601729262e-17 -0.01574999999999999 1.887263289131042e-15 4.038264874689369e-15 2.245790292315881</pose>
+      <parent>bicep_rod_2</parent>
+      <child>connecting_element_4</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <effort>1</effort>
+          <velocity>20</velocity>
+          <lower>-10000000000000000</lower>
+          <upper>10000000000000000</upper>
+        </limit>
+        <dynamics>
+          <damping>0.050000000000000003</damping>
+          <friction>0.050000000000000003</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='connecting_element_4'>
+      <pose relative_to='21'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-1.390515398592445e-08 -5.487201678760963e-16 -1.463854025246548e-16 0 0 0</pose>
+        <mass>0.043235391457957517</mass>
+        <inertia>
+          <ixx>2.1177810582158179e-05</ixx>
+          <ixy>-6.8496131922586851e-10</ixy>
+          <ixz>-1.2460809094521851e-20</ixz>
+          <iyy>2.104955486944634e-05</iyy>
+          <iyz>4.4464792309666153e-11</iyz>
+          <izz>1.0143582146042479e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='connecting_element_4_collision'>
+        <pose>-2.775557561562891e-17 0 -2.005774019098183e-17 3.141592653589793 -5.772835337135521e-17 4.833131475859587e-17</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/connecting_element.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='connecting_element_4_collision_1'>
+        <pose>-2.775557561562891e-17 -2.775557561562891e-17 -0.03274999999999997 0 -1.570796326794897 -2.475854877684357e-16</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_1.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='connecting_element_4_collision_2'>
+        <pose>-2.386979502944087e-15 -2.192690473634684e-15 -0.01775000000000046 0 1.570796326794897 2.073539927446581</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_3.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='connecting_element_4_collision_3'>
+        <pose>-2.414735078559715e-15 -2.220446049250313e-15 -0.02015000000000047 0 -1.570796326794897 -1.068052726143213</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_2.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='connecting_element_4_collision_4'>
+        <pose>0 2.775557561562891e-17 0.03274999999999992 0 1.570796326794897 3.141592653589793</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_1.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='connecting_element_4_collision_5'>
+        <pose>-2.386979502944087e-15 -2.164934898019055e-15 0.01774999999999944 0 -1.570796326794897 1.549941151848277</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_3.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='connecting_element_4_collision_6'>
+        <pose>-2.359223927328458e-15 -2.137179322403426e-15 0.02014999999999944 0 1.570796326794897 -1.591651501741517</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_2.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='connecting_element_4_visual'>
+        <pose>-2.775557561562891e-17 0 -2.005774019098183e-17 3.141592653589793 -5.772835337135521e-17 4.833131475859587e-17</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/connecting_element.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.75 0.75 0.75 1</diffuse>
+          <ambient>0.75 0.75 0.75 1</ambient>
+        </material>
+      </visual>
+      <visual name='connecting_element_4_visual_1'>
+        <pose>-2.775557561562891e-17 -2.775557561562891e-17 -0.03274999999999997 0 -1.570796326794897 -2.475854877684357e-16</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_1.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+      <visual name='connecting_element_4_visual_2'>
+        <pose>-2.386979502944087e-15 -2.192690473634684e-15 -0.01775000000000046 0 1.570796326794897 2.073539927446581</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_3.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.808824 0.808824 0.808824 1</diffuse>
+          <ambient>0.808824 0.808824 0.808824 1</ambient>
+        </material>
+      </visual>
+      <visual name='connecting_element_4_visual_3'>
+        <pose>-2.414735078559715e-15 -2.220446049250313e-15 -0.02015000000000047 0 -1.570796326794897 -1.068052726143213</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_2.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.75 0.75 0.75 1</diffuse>
+          <ambient>0.75 0.75 0.75 1</ambient>
+        </material>
+      </visual>
+      <visual name='connecting_element_4_visual_4'>
+        <pose>0 2.775557561562891e-17 0.03274999999999992 0 1.570796326794897 3.141592653589793</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_1.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+      <visual name='connecting_element_4_visual_5'>
+        <pose>-2.386979502944087e-15 -2.164934898019055e-15 0.01774999999999944 0 -1.570796326794897 1.549941151848277</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_3.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.808824 0.808824 0.808824 1</diffuse>
+          <ambient>0.808824 0.808824 0.808824 1</ambient>
+        </material>
+      </visual>
+      <visual name='connecting_element_4_visual_6'>
+        <pose>-2.359223927328458e-15 -2.137179322403426e-15 0.02014999999999944 0 1.570796326794897 -1.591651501741517</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_2.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.75 0.75 0.75 1</diffuse>
+          <ambient>0.75 0.75 0.75 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='24' type='revolute'>
+      <pose relative_to='connecting_element_4'>0 0.002999999999999975 -0.03274999999999994 -1.570796326794887 -1.498849941234947 -6.100607455778226e-14</pose>
+      <parent>connecting_element_4</parent>
+      <child>forarm_rod_half_5</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <effort>1</effort>
+          <velocity>20</velocity>
+          <lower>-10000000000000000</lower>
+          <upper>10000000000000000</upper>
+        </limit>
+        <dynamics>
+          <damping>0.050000000000000003</damping>
+          <friction>0.050000000000000003</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='forarm_rod_half_5'>
+      <pose relative_to='24'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-2.207991758983371e-17 -0.07376136588429802 -0.002999999999999957 0 0 0</pose>
+        <mass>0.01154006859546512</mass>
+        <inertia>
+          <ixx>2.2462951176652551e-05</ixx>
+          <ixy>-6.7453908947484932e-22</ixy>
+          <ixz>3.9687511086793141e-22</ixz>
+          <iyy>1.7377026741497059e-07</iyy>
+          <iyz>-8.4703294725430034e-22</iyz>
+          <izz>2.2567481038494769e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='forarm_rod_half_5_collision'>
+        <pose>-1.734723475976807e-17 -0.15 -0.00599999999999995 -1.570796326794897 -3.06497424432636e-17 -2.953296738215175e-17</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/forarm_rod_half.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='forarm_rod_half_5_visual'>
+        <pose>-1.734723475976807e-17 -0.15 -0.00599999999999995 -1.570796326794897 -3.06497424432636e-17 -2.953296738215175e-17</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/forarm_rod_half.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='25' type='revolute'>
+      <pose relative_to='connecting_element_4'>0 0.003000000000000003 0.03274999999999995 -1.570796326794901 -1.498849941234956 -1.544457583741465e-14</pose>
+      <parent>connecting_element_4</parent>
+      <child>forarm_rod_half_6</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <effort>1</effort>
+          <velocity>20</velocity>
+          <lower>-10000000000000000</lower>
+          <upper>10000000000000000</upper>
+        </limit>
+        <dynamics>
+          <damping>0.050000000000000003</damping>
+          <friction>0.050000000000000003</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='forarm_rod_half_6'>
+      <pose relative_to='25'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>2.218219411545824e-18 -0.07376136588429798 -0.00300000000000003 0 0 0</pose>
+        <mass>0.01154006859546512</mass>
+        <inertia>
+          <ixx>2.2462951176652551e-05</ixx>
+          <ixy>1.1890951136855481e-21</ixy>
+          <ixz>7.7479899970929552e-22</ixz>
+          <iyy>1.7377026741497059e-07</iyy>
+          <iyz>-4.2351647362715017e-22</iyz>
+          <izz>2.2567481038494749e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='forarm_rod_half_6_collision'>
+        <pose>0 -0.15 -0.006000000000000033 -1.570796326794896 -1.591302185958173e-17 5.273611337403597e-17</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/forarm_rod_half.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='forarm_rod_half_6_visual'>
+        <pose>0 -0.15 -0.006000000000000033 -1.570796326794896 -1.591302185958173e-17 5.273611337403597e-17</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/forarm_rod_half.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='motor_3' type='revolute'>
+      <pose relative_to='base_link'>0.07855002508975303 -0.06304228871833885 0.0487499999999999 -1.570796326794896 0.3930587606222231 2.617993877991495</pose>
+      <parent>base_link</parent>
+      <child>bicep_rod_3</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>1.570796326794897</upper>
+          <effort>2000</effort>
+          <velocity>2</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.001</damping>
+          <friction>0.001</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='bicep_rod_3'>
+      <pose relative_to='motor_3'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-0.0780819681119779 -7.864646029786827e-17 -0.01499748289392983 0 0 0</pose>
+        <mass>0.050961850551235831</mass>
+        <inertia>
+          <ixx>5.2079917158922497e-06</ixx>
+          <ixy>1.12522269674247e-20</ixy>
+          <ixz>-2.9944172647275632e-06</ixz>
+          <iyy>0.00024166052430367861</iyy>
+          <iyz>-1.2008746748709149e-21</iyz>
+          <izz>0.00024357414644567959</izz>
+        </inertia>
+      </inertial>
+      <collision name='bicep_rod_3_collision'>
+        <pose>-0.09999999999999999 1.301042606982605e-17 -0.01575 1.570796326794896 -1.431569718742407e-17 -3.13910860642397e-17</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/bicep_rod.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='bicep_rod_3_visual'>
+        <pose>-0.09999999999999999 1.301042606982605e-17 -0.01575 1.570796326794896 -1.431569718742407e-17 -3.13910860642397e-17</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/bicep_rod.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='31' type='revolute'>
+      <pose relative_to='bicep_rod_3'>-0.2000000000000003 -1.35308431126191e-16 -0.01575000000000027 -3.141592653589792 -1.447024583450203e-15 -0.8958023612739243</pose>
+      <parent>bicep_rod_3</parent>
+      <child>connecting_element_5</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <effort>1</effort>
+          <velocity>20</velocity>
+          <lower>-10000000000000000</lower>
+          <upper>10000000000000000</upper>
+        </limit>
+        <dynamics>
+          <damping>0.050000000000000003</damping>
+          <friction>0.050000000000000003</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='connecting_element_5'>
+      <pose relative_to='31'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-1.390515330315224e-08 -2.054833127224153e-16 -9.309735449640785e-17 0 0 0</pose>
+        <mass>0.043235391457957517</mass>
+        <inertia>
+          <ixx>2.1177810582158209e-05</ixx>
+          <ixy>6.8496131922496306e-10</ixy>
+          <ixz>-6.0818113245179317e-21</ixz>
+          <iyy>2.104955486944635e-05</iyy>
+          <iyz>4.4464792343042348e-11</iyz>
+          <izz>1.014358214604256e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='connecting_element_5_collision'>
+        <pose>-2.775557561562891e-17 -5.551115123125783e-17 5.475220971051797e-18 -3.141592653589793 -2.093238037326914e-17 1.67535973056902e-18</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/connecting_element.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='connecting_element_5_collision_1'>
+        <pose>-2.775557561562891e-17 -5.551115123125783e-17 -0.03274999999999999 0 -1.570796326794897 5.031777806766157e-17</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_1.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='connecting_element_5_collision_2'>
+        <pose>3.05311331771918e-16 -6.106226635438361e-16 -0.01775000000000032 0 1.570796326794897 1.068052726143198</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_3.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='connecting_element_5_collision_3'>
+        <pose>3.33066907387547e-16 -6.38378239159465e-16 -0.02015000000000034 0 -1.570796326794897 -2.073539927446596</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_2.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='connecting_element_5_collision_4'>
+        <pose>0 -8.326672684688674e-17 0.03274999999999995 0 1.570796326794897 -3.141592653589793</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_1.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='connecting_element_5_collision_5'>
+        <pose>3.33066907387547e-16 -5.551115123125783e-16 0.0177499999999997 0 -1.570796326794897 1.591651501741496</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_3.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='connecting_element_5_collision_6'>
+        <pose>3.05311331771918e-16 -6.106226635438361e-16 0.02014999999999971 0 1.570796326794897 -1.549941151848298</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_2.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='connecting_element_5_visual'>
+        <pose>-2.775557561562891e-17 -5.551115123125783e-17 5.475220971051797e-18 -3.141592653589793 -2.093238037326914e-17 1.67535973056902e-18</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/connecting_element.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.75 0.75 0.75 1</diffuse>
+          <ambient>0.75 0.75 0.75 1</ambient>
+        </material>
+      </visual>
+      <visual name='connecting_element_5_visual_1'>
+        <pose>-2.775557561562891e-17 -5.551115123125783e-17 -0.03274999999999999 0 -1.570796326794897 5.031777806766157e-17</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_1.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+      <visual name='connecting_element_5_visual_2'>
+        <pose>3.05311331771918e-16 -6.106226635438361e-16 -0.01775000000000032 0 1.570796326794897 1.068052726143198</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_3.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.808824 0.808824 0.808824 1</diffuse>
+          <ambient>0.808824 0.808824 0.808824 1</ambient>
+        </material>
+      </visual>
+      <visual name='connecting_element_5_visual_3'>
+        <pose>3.33066907387547e-16 -6.38378239159465e-16 -0.02015000000000034 0 -1.570796326794897 -2.073539927446596</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_2.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.75 0.75 0.75 1</diffuse>
+          <ambient>0.75 0.75 0.75 1</ambient>
+        </material>
+      </visual>
+      <visual name='connecting_element_5_visual_4'>
+        <pose>0 -8.326672684688674e-17 0.03274999999999995 0 1.570796326794897 -3.141592653589793</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_1.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+      <visual name='connecting_element_5_visual_5'>
+        <pose>3.33066907387547e-16 -5.551115123125783e-16 0.0177499999999997 0 -1.570796326794897 1.591651501741496</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_3.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.808824 0.808824 0.808824 1</diffuse>
+          <ambient>0.808824 0.808824 0.808824 1</ambient>
+        </material>
+      </visual>
+      <visual name='connecting_element_5_visual_6'>
+        <pose>3.05311331771918e-16 -6.106226635438361e-16 0.02014999999999971 0 1.570796326794897 -1.549941151848298</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/63755205_2.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.75 0.75 0.75 1</diffuse>
+          <ambient>0.75 0.75 0.75 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='34' type='revolute'>
+      <pose relative_to='connecting_element_5'>-8.326672684688674e-17 0.002999999999999947 -0.03275000000000003 -1.570796326794898 1.498849941234936 1.390011825366874e-14</pose>
+      <parent>connecting_element_5</parent>
+      <child>forarm_rod_half_7</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <effort>1</effort>
+          <velocity>20</velocity>
+          <lower>-10000000000000000</lower>
+          <upper>10000000000000000</upper>
+        </limit>
+        <dynamics>
+          <damping>0.050000000000000003</damping>
+          <friction>0.050000000000000003</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='forarm_rod_half_7'>
+      <pose relative_to='34'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-2.041888049183978e-17 -0.07376136588429803 -0.002999999999999945 0 0 0</pose>
+        <mass>0.01154006859546512</mass>
+        <inertia>
+          <ixx>2.2462951176652551e-05</ixx>
+          <ixy>3.0012123349628219e-22</ixy>
+          <ixz>-1.675304613215504e-22</ixz>
+          <iyy>1.7377026741497059e-07</iyy>
+          <iyz>-4.2351647362715017e-22</iyz>
+          <izz>2.2567481038494739e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='forarm_rod_half_7_collision'>
+        <pose>-1.734723475976807e-17 -0.15 -0.00599999999999995 -1.570796326794896 -1.30829861027438e-17 1.368586256611882e-17</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/forarm_rod_half.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='forarm_rod_half_7_visual'>
+        <pose>-1.734723475976807e-17 -0.15 -0.00599999999999995 -1.570796326794896 -1.30829861027438e-17 1.368586256611882e-17</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/forarm_rod_half.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='35' type='revolute'>
+      <pose relative_to='connecting_element_5'>-2.775557561562891e-17 0.003000000000000003 0.03274999999999996 -1.570796326794911 1.498849941234941 4.633372751223307e-15</pose>
+      <parent>connecting_element_5</parent>
+      <child>forarm_rod_half_8</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <effort>1</effort>
+          <velocity>20</velocity>
+          <lower>-10000000000000000</lower>
+          <upper>10000000000000000</upper>
+        </limit>
+        <dynamics>
+          <damping>0.050000000000000003</damping>
+          <friction>0.050000000000000003</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='forarm_rod_half_8'>
+      <pose relative_to='35'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>3.083465383803378e-17 -0.07376136588429803 -0.003000000000000005 0 0 0</pose>
+        <mass>0.01154006859546512</mass>
+        <inertia>
+          <ixx>2.2462951176652551e-05</ixx>
+          <ixy>-2.474121367939488e-22</ixy>
+          <ixz>1.249317556994807e-21</ixz>
+          <iyy>1.7377026741497059e-07</iyy>
+          <iyz>8.4703294725430034e-22</iyz>
+          <izz>2.2567481038494739e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='forarm_rod_half_8_collision'>
+        <pose>2.081668171172169e-17 -0.15 -0.006000000000000005 -1.570796326794896 -3.787297069858912e-17 -1.200563124841847e-17</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/forarm_rod_half.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='forarm_rod_half_8_visual'>
+        <pose>2.081668171172169e-17 -0.15 -0.006000000000000005 -1.570796326794896 -3.787297069858912e-17 -1.200563124841847e-17</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://$(find delta_robot_description)/meshes/delta_robot/forarm_rod_half.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <plugin name='gz::sim::systems::DetachableJoint' filename='libgz-sim-detachable-joint-system.so'>
+      <parent_link>closing_arm_1_1</parent_link>
+      <child_link>closing_arm_1_2</child_link>
+      <attach_topic>close_loop</attach_topic>
+    </plugin>
+    <plugin name='ignition::gazebo::systems::JointStatePublisher' filename='ignition-gazebo-joint-state-publisher-system'>
+      <topic>joint_states</topic>
+    </plugin>
+    <plugin name='ignition::gazebo::systems::JointPositionController' filename='ignition-gazebo-joint-position-controller-system'>
+      <joint_name>motor_1</joint_name>
+    </plugin>
+    <plugin name='ignition::gazebo::systems::JointPositionController' filename='ignition-gazebo-joint-position-controller-system'>
+      <joint_name>motor_2</joint_name>
+    </plugin>
+    <plugin name='ignition::gazebo::systems::JointPositionController' filename='ignition-gazebo-joint-position-controller-system'>
+      <joint_name>motor_3</joint_name>
+    </plugin>
+    <frame name='closing_arm_1_2_frame' attached_to='connecting_element_half'>
+      <pose>0.03275 -0 0.003 1.5708 -0 -1.5708</pose>
+    </frame>
+    <frame name='closing_arm_1_2' attached_to='closing_arm_1_2_frame'/>
+    <frame name='closing_arm_22_1_frame' attached_to='forarm_rod_half'>
+      <pose>-0 -0.15 -0.003 1.5708 -0 -0</pose>
+    </frame>
+    <frame name='closing_arm_22_1' attached_to='closing_arm_22_1_frame'/>
+    <frame name='closing_arm_21_2_frame' attached_to='forarm_rod_half_2'>
+      <pose>0 -0.15 -0.003 1.5708 0 3.14159</pose>
+    </frame>
+    <frame name='closing_arm_21_2' attached_to='closing_arm_21_2_frame'/>
+    <frame name='closing_arm_32_2_frame' attached_to='forarm_rod_half_3'>
+      <pose>0 -0.15 -0.003 -1.5708 -0 0</pose>
+    </frame>
+    <frame name='closing_arm_32_2' attached_to='closing_arm_32_2_frame'/>
+    <frame name='closing_arm_31_2_frame' attached_to='forarm_rod_half_4'>
+      <pose>-0 -0.15 -0.003 -1.5708 0 -0</pose>
+    </frame>
+    <frame name='closing_arm_31_2' attached_to='closing_arm_31_2_frame'/>
+    <frame name='closing_arm_1_1_frame' attached_to='connecting_element_half_2'>
+      <pose>0.03275 -0 0.003 1.5708 -0 1.5708</pose>
+    </frame>
+    <frame name='closing_arm_1_1' attached_to='closing_arm_1_1_frame'/>
+    <frame name='closing_arm_22_2_frame' attached_to='forarm_rod_half_5'>
+      <pose>-0 -0.15 -0.003 1.5708 0 3.14159</pose>
+    </frame>
+    <frame name='closing_arm_22_2' attached_to='closing_arm_22_2_frame'/>
+    <frame name='closing_arm_21_1_frame' attached_to='forarm_rod_half_6'>
+      <pose>0 -0.15 -0.003 1.5708 -0 0</pose>
+    </frame>
+    <frame name='closing_arm_21_1' attached_to='closing_arm_21_1_frame'/>
+    <frame name='closing_arm_32_1_frame' attached_to='forarm_rod_half_7'>
+      <pose>-0 -0.15 -0.003 1.5708 -0 0</pose>
+    </frame>
+    <frame name='closing_arm_32_1' attached_to='closing_arm_32_1_frame'/>
+    <frame name='closing_arm_31_1_frame' attached_to='forarm_rod_half_8'>
+      <pose>0 -0.15 -0.003 1.5708 -0 -0</pose>
+    </frame>
+    <frame name='closing_arm_31_1' attached_to='closing_arm_31_1_frame'/>
+  </model>
+</sdf>

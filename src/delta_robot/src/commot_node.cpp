@@ -93,7 +93,7 @@ commot::commot(): Node("COMMOT")
     }
     );
 
-    //?Reading and logging of current postion (service based) => "simple callback via lambda function"
+    //?Reading and logging of current postion (service based)
     auto get_present_position =
       [this](
       const std::shared_ptr<GetPosition::Request> request,
@@ -101,7 +101,6 @@ commot::commot(): Node("COMMOT")
       {
         uint32_t present_position = 0;
         // Read Present Position (length : 4 bytes) and Convert uint32 -> int32
-        // When reading 2 byte data from AX / MX(1.0), use read2ByteTxRx() instead.
         dxl_comm_result = packetHandler->read4ByteTxRx(
           portHandler,
           (uint8_t) request->id,
@@ -125,10 +124,9 @@ commot::commot(): Node("COMMOT")
     
 
 
-    //? sub für opmode und switch case für Reglerkoeffizienten für den entsprechenden mode
-    //? + adaptive Veränderung der Reglerparameter (linear => ähnlich Feder ODER vllt auch eine nicht lineare Funktion => könnte so den die äußeren Bereiche lange weich lassen)
-    //? konstante Reibungskompensation aufschalten 
-
+    //* Overall structure: sub for opmode message which conatains the variable "mode" decides between point navigation and compliant mode using a switch case. 
+    //* Control parameters are set in each mode individually. In compliant mode an adaptive change of the control gains can be chosen.
+   
     OpMod_subscriber_ =
     this->create_subscription<delta_robot_interfaces::msg::OpMod>(
     "OpMod",
@@ -139,9 +137,7 @@ commot::commot(): Node("COMMOT")
       
 
       switch(msg->mode){
-        case 0 :{  
-           //TODO: fwdkinout von Bezugsposition abziehen (falls möglich fallunterscheidung ob vor compliant mode pointnav genutzt wurde => wenn ja dann Bezugsposition = alt GoalPos Pointnav ANSONSTEN FESTERWERT)
-                              //punktnav
+        case 0 :{             //* = point navigation mode
           int kpp = 800;
           int kdp = 8500;
           int start_position = 2692;
@@ -175,9 +171,9 @@ commot::commot(): Node("COMMOT")
           break;
         }
 
-        case 1 : {                   //compliant
+        case 1 : {         //* compliant mode
   
-          //*the home position of the robot for the compliant mode is chosen to the effector position of xeff=0, yeff=0 und z=300 => resulting in the 2692. Increment for all 3 motors 
+          //! the home position of the robot for the compliant mode is chosen to the effector position of xeff=0, yeff=0 und z=300 => resulting in the 2692. Increment for all 3 motors 
           int home_position = 2692;
 
           for (int i =1; i<=3; i++){ 
@@ -191,7 +187,7 @@ commot::commot(): Node("COMMOT")
                   );
           if (dxl_comm_result != COMM_SUCCESS) {
             RCLCPP_WARN(this->get_logger(), "Error with zeroing D-Gain of motor %d, breaking loop", i);
-            break; }// Schleife vorzeitig beenden
+            break; }
 
           dxl_comm_result =
             packetHandler->write4ByteTxRx(    
@@ -203,14 +199,13 @@ commot::commot(): Node("COMMOT")
           );
           if (dxl_comm_result != COMM_SUCCESS) {
             RCLCPP_WARN(this->get_logger(), "Error with writing Goal Position to motor %d, breaking loop", i);
-            break; }// Schleife vorzeitig beenden
+            break; }
           }
 
           RCLCPP_INFO(rclcpp::get_logger("COMMOT"), "Succeeded to zero D-Gains and setting home position of all 3");
 
 
           for (int i =1; i<=3; i++){
-
 
           //! The code that is commented out below describes the adaptive motor gain control. The code works BUT there is a reliability issue when commot and opmod node are running.
           //! The problem appears to be realted to the high data traffic. Then packages might get lost between motor and the nodes which results in for-loops which arent't broken. 
@@ -231,10 +226,10 @@ commot::commot(): Node("COMMOT")
           //Definition of logger output
           if (dxl_comm_result != COMM_SUCCESS) {
             RCLCPP_WARN(this->get_logger(), "Reading present Pos: %s, breaking loop", packetHandler->getTxRxResult(dxl_comm_result));
-            break; }// Schleife vorzeitig beenden
+            break; }
             else if (dxl_error != 0) {
             RCLCPP_WARN(this->get_logger(), "Reading present Pos: %s, breaking loop", packetHandler->getRxPacketError(dxl_error));
-            break; }// Schleife vorzeitig beenden
+            break; }
             else {
             RCLCPP_INFO(this->get_logger(), "Present [ID: %i]", i);
           }    
@@ -247,33 +242,32 @@ commot::commot(): Node("COMMOT")
           RCLCPP_INFO(this->get_logger(), "Present [ID: %i] [e: %i]", i, e);
           float maxkp = 200.0;
           
-          //float kpc = (abs(e) > 0) ? 1.5*(pow(10.0,(static_cast<double>(abs(e)))/150.0))+0.15*static_cast<double>(abs(e))+10.0 : (maxkp-180); //? possibly better than normal linear function if parameters are set correctly
+          //float kpc = (abs(e) > 0) ? 1.5*(pow(10.0,(static_cast<double>(abs(e)))/150.0))+0.15*static_cast<double>(abs(e))+10.0 : (maxkp-180); //*non-linear adaptive gain possibly better than normal linear function if parameters are set correctly
                    
-          float kpc = (e > 0) ? 0.25*(static_cast<double>(e))+10.0 : (maxkp-180.0);     //!Beste Params bisher m=0.3 und c=10 ABER ca. 7cm Höhen abweichung
-
+          float kpc = (e > 0) ? 0.25*(static_cast<double>(e))+10.0 : (maxkp-180.0);  //* linear adaptive gain 
           if (kpc > maxkp){
             kpc = maxkp;
           }
           */
 
           //! Since the adaptive gain control is currently not robust, the motor P-Gain is set constant to reduce the data traffic on the RS485 bus. 
-          //! The constant P-Gain allows  a compliant behaviour but with less accuracy then with adaptive gain controll
+          //! The constant P-Gain allows a compliant behaviour but with less accuracy then with adaptive gain control.
           //write new Kp to motors
           dxl_comm_result =
           packetHandler-> write2ByteTxRx(    
             portHandler,
             i,
             ADDR_POS_P_GAIN,
-            25,                          //! if adaptive gain control ("experimental code" above) is used the 25 has to be replaced by: static_cast<uint32_t>(std::round(kpc)),
+            25,                          //! If adaptive gain control ("experimental code" above) is used, the 25 has to be replaced by: " static_cast<uint32_t>(std::round(kpc)), "
             &dxl_error
           );
           
           if (dxl_comm_result != COMM_SUCCESS) {
             RCLCPP_WARN(this->get_logger(), "Writing kpc: %s, breaking loop", packetHandler->getTxRxResult(dxl_comm_result));
-            break; }// Schleife vorzeitig beenden
+            break; }
             else if (dxl_error != 0) {
             RCLCPP_WARN(this->get_logger(), "Writing kpc: %s, breaking loop", packetHandler->getRxPacketError(dxl_error));
-            break; }// Schleife vorzeitig beenden
+            break; }
            else {
             RCLCPP_INFO(this->get_logger(), "Present [ID: %i] ", i);
           }     
@@ -301,7 +295,7 @@ void setupDynamixel(uint8_t dxl_id)
     portHandler,
     dxl_id,
     ADDR_OPERATING_MODE,
-    5,   //current-based position control was chosen => needed for compliant mode and smoother für point navigation mode
+    5,   //current-based position control was chosen => needed for compliant mode and smoother in point navigation mode than position control mode
     &dxl_error
   );
 

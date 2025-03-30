@@ -21,7 +21,7 @@ public:
   using GetPosition = dynamixel_sdk_custom_interfaces::srv::GetPosition;
 
   commot();
-  virtual ~commot(); //destrucutor
+  virtual ~commot(); 
 
 private:
   rclcpp::Subscription<SetPosition>::SharedPtr set_position_subscriber_;

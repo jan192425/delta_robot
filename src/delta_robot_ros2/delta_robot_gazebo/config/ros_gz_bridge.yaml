@@ -1,0 +1,25 @@
+# gz topic published by the JointState plugin
+- ros_topic_name: "joint_states"
+  gz_topic_name: "joint_states"
+  ros_type_name: "sensor_msgs/msg/JointState"
+  gz_type_name: "ignition.msgs.Model" # In future, this will be gz.msgs.Model
+  direction: GZ_TO_ROS
+
+# gz topic subscribed by the JointPositionController plugin
+- ros_topic_name: "model/delta_robot/joint/motor_1/cmd_pos"
+  gz_topic_name: "model/delta_robot/joint/motor_1/0/cmd_pos"
+  ros_type_name: "std_msgs/msg/Float64"
+  gz_type_name: "ignition.msgs.Double" # In future, this will be gz.msgs.Double
+  direction: ROS_TO_GZ
+
+- ros_topic_name: "model/delta_robot/joint/motor_2/cmd_pos"
+  gz_topic_name: "model/delta_robot/joint/motor_2/0/cmd_pos"
+  ros_type_name: "std_msgs/msg/Float64"
+  gz_type_name: "ignition.msgs.Double" # In future, this will be gz.msgs.Double
+  direction: ROS_TO_GZ
+
+- ros_topic_name: "model/delta_robot/joint/motor_3/cmd_pos"
+  gz_topic_name: "model/delta_robot/joint/motor_3/0/cmd_pos"
+  ros_type_name: "std_msgs/msg/Float64"
+  gz_type_name: "ignition.msgs.Double" # In future, this will be gz.msgs.Double
+  direction: ROS_TO_GZ

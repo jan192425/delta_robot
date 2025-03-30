@@ -17,7 +17,7 @@
 using namespace std;
 
 //! Radii must be set according to the position of the intersection of the arm's symmetry axis
-//! with the axis of either the motorshaft or the endeffector joint shaft !!!!!!!!!!!!!!!!!!!!!!
+//! with the axis of either the motorshaft or the endeffector joint shaft!
 float re = 30.0;  //effector radius in mm
 float rf = 95.0; //base radius in mm
 float e = 2*re*tan60;  //length of triangle side of endeffector
@@ -126,7 +126,7 @@ float delta_calcAngleYZ(float xeff, float yeff, float zeff, int i) {
      float yj = (y1 - a*b - sqrt(d))/(b*b + 1); // choosing outer point (= - branch of the quadratic equation)
      float zj = a + b*yj;
      float theta = 180.0*atan(-zj/(y1 - yj))/PI; //Output in Degree
-     if (theta < -30 || theta > 90)
+     if (theta < -30 || theta >= 90)
         return prevangle[i];
      else 
         return theta;

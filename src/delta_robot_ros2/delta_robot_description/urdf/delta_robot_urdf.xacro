@@ -1,0 +1,508 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="delta_robot">
+
+    <!-- URDF for delta_robot -->
+
+    <link name = "world"></link>
+
+    <joint name="base_joint" type="fixed">
+        <origin xyz="0.2 0.2 0.002" rpy="0 0 0"/>
+        <parent link="world"/>
+        <child link="base_link"/>        
+    </joint>
+
+    <link name="base_link">
+    <visual>
+    <origin xyz="-0.0001775152886902345295 0.00059761139126611462213 3.9031278209478159624e-18" rpy="-3.1069237988459197054e-17 -1.2338159842391658037e-18 2.0943951023931952626" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/motor_mount.stl"/>
+    </geometry>
+    <material name="motor_mount_material">
+    <color rgba="0.52941176470588235947 0.56862745098039213509 0.5999999999999999778 1.0"/>
+    </material>
+    </visual>
+    <collision>
+    <origin xyz="-0.0001775152886902345295 0.00059761139126611462213 3.9031278209478159624e-18" rpy="-3.1069237988459197054e-17 -1.2338159842391658037e-18 2.0943951023931952626" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/motor_mount.stl"/>
+    </geometry>
+    </collision>
+    <visual>
+    <origin xyz="-0.00017751528869052596304 0.00059761139126590992476 0" rpy="-3.1245060190741023797e-18 7.8794511999392257785e-18 1.1520252971942095847e-17" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/base_plate.stl"/>
+    </geometry>
+    <material name="base_plate_material">
+    <color rgba="0.89019607843137249503 0.87058823529411766273 0.91764705882352937127 1.0"/>
+    </material>
+    </visual>
+    <collision>
+    <origin xyz="-0.00017751528869052596304 0.00059761139126590992476 0" rpy="-3.1245060190741023797e-18 7.8794511999392257785e-18 1.1520252971942095847e-17" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/base_plate.stl"/>
+    </geometry>
+    </collision>
+    <visual>
+    <origin xyz="-0.00017751528869046004355 0.00059761139126590992476 2.168404344971008868e-19" rpy="-5.2615502926620004774e-18 -1.0876200827765725814e-18 -2.0943951023931957067" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/motor_mount.stl"/>
+    </geometry>
+    <material name="motor_mount_material">
+    <color rgba="0.52941176470588235947 0.56862745098039213509 0.5999999999999999778 1.0"/>
+    </material>
+    </visual>
+    <collision>
+    <origin xyz="-0.00017751528869046004355 0.00059761139126590992476 2.168404344971008868e-19" rpy="-5.2615502926620004774e-18 -1.0876200827765725814e-18 -2.0943951023931957067" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/motor_mount.stl"/>
+    </geometry>
+    </collision>
+    <visual>
+    <origin xyz="0.066300025089752981367 -0.084259911111058363731 0.048749999999999980849" rpy="1.570796326794896558 7.5426738779609901913e-17 2.6179938779914917468" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/dc13_x540_dummy.stl"/>
+    </geometry>
+    <material name="dc13_x540_dummy_material">
+    <color rgba="0.30196078431372547213 0.30196078431372547213 0.30196078431372547213 1.0"/>
+    </material>
+    </visual>
+    <collision>
+    <origin xyz="0.066300025089752981367 -0.084259911111058363731 0.048749999999999980849" rpy="1.570796326794896558 7.5426738779609901913e-17 2.6179938779914917468" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/dc13_x540_dummy.stl"/>
+    </geometry>
+    </collision>
+    <visual>
+    <origin xyz="0.040072484711309502847 0.10059761139126592588 0.048749999999999980849" rpy="1.570796326794896558 -3.1245093277965679993e-18 -1.570796326794896558" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/dc13_x540_dummy.stl"/>
+    </geometry>
+    <material name="dc13_x540_dummy_material">
+    <color rgba="0.30196078431372547213 0.30196078431372547213 0.30196078431372547213 1.0"/>
+    </material>
+    </visual>
+    <collision>
+    <origin xyz="0.040072484711309502847 0.10059761139126592588 0.048749999999999980849" rpy="1.570796326794896558 -3.1245093277965679993e-18 -1.570796326794896558" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/dc13_x540_dummy.stl"/>
+    </geometry>
+    </collision>
+    <visual>
+    <origin xyz="-0.00017751528869055024917 0.00059761139126596196647 -2.168404344971008868e-19" rpy="-3.1245060190741016094e-18 -4.5041539453063956589e-18 -8.6736177751094725206e-17" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/motor_mount.stl"/>
+    </geometry>
+    <material name="motor_mount_material">
+    <color rgba="0.52941176470588235947 0.56862745098039213509 0.5999999999999999778 1.0"/>
+    </material>
+    </visual>
+    <collision>
+    <origin xyz="-0.00017751528869055024917 0.00059761139126596196647 -2.168404344971008868e-19" rpy="-3.1245060190741016094e-18 -4.5041539453063956589e-18 -8.6736177751094725206e-17" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/motor_mount.stl"/>
+    </geometry>
+    </collision>
+    <visual>
+    <origin xyz="-0.10690505566713494334 -0.014544866106409846257 0.048749999999999994726" rpy="1.570796326794896558 -3.1069237988459141588e-17 0.52359877559830247939" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/dc13_x540_dummy.stl"/>
+    </geometry>
+    <material name="dc13_x540_dummy_material">
+    <color rgba="0.30196078431372547213 0.30196078431372547213 0.30196078431372547213 1.0"/>
+    </material>
+    </visual>
+    <collision>
+    <origin xyz="-0.10690505566713494334 -0.014544866106409846257 0.048749999999999994726" rpy="1.570796326794896558 -3.1069237988459141588e-17 0.52359877559830247939" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/dc13_x540_dummy.stl"/>
+    </geometry>
+    </collision>
+    <inertial>
+    <origin xyz="-0.00016122483469887020305 0.00055229382476998899187 0.030796178444245096012" rpy="0 0 0"/>
+    <mass value="2.2633912012388961443" />
+    <inertia ixx="0.013699240615172064012" ixy="-2.8956553318720389817e-06"  ixz="1.0541336563802143535e-06" iyy="0.013707418413198568102" iyz="-2.9603162574546104733e-06" izz="0.025879112491365686977" />
+    </inertial>
+    </link>
+
+
+    <link name="bicep_rod">
+    <visual>
+    <origin xyz="-0.099999999999999977796 6.9388939039072283776e-18 -0.015750000000000000111" rpy="1.570796326794896558 -1.2460696958894511463e-31 -1.3530835845824207525e-18" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/bicep_rod.stl"/>
+    </geometry>
+    <material name="bicep_rod_material">
+    <color rgba="0.80000000000000004441 0.80000000000000004441 0.80000000000000004441 1.0"/>
+    </material>
+    </visual>
+    <collision>
+    <origin xyz="-0.099999999999999977796 6.9388939039072283776e-18 -0.015750000000000000111" rpy="1.570796326794896558 -1.2460696958894511463e-31 -1.3530835845824207525e-18" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/bicep_rod.stl"/>
+    </geometry>
+    </collision>
+    <inertial>
+    <origin xyz="-0.078081968111977914648 -8.4155794501061477637e-17 -0.014997482893929825476" rpy="0 0 0"/>
+    <mass value="0.050961850551235823858" />
+    <inertia ixx="5.2079917158922480535e-06" ixy="-1.2321711599573585462e-22"  ixz="-2.9944172647275547383e-06" iyy="0.00024166052430367850339" iyz="4.0516968462893711394e-24" izz="0.00024357414644567967552" />
+    </inertial>
+    </link>
+
+
+    <link name="connecting_element">
+    <visual>
+    <origin xyz="0 0 0" rpy="3.141592653589793116 7.0869467081710430223e-33 1.1992540394767982998e-34" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/connecting_element.stl"/>
+    </geometry>
+    <material name="connecting_element_material">
+    <color rgba="0.5999999999999999778 0.5999999999999999778 0.5999999999999999778 1.0"/>
+    </material>
+    </visual>
+    <collision>
+    <origin xyz="0 0 0" rpy="3.141592653589793116 7.0869467081710430223e-33 1.1992540394767982998e-34" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/connecting_element.stl"/>
+    </geometry>
+    </collision>
+    <visual>
+    <origin xyz="6.9388939039072283776e-18 -5.5511151231257827021e-17 -0.032749999999999987454" rpy="-2.3917901934806809389e-16 -1.5707963267948947816 0" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/63755205_1.stl"/>
+    </geometry>
+    <material name="63755205_1_material">
+    <color rgba="0.91764705882352937127 0.91764705882352937127 0.91764705882352937127 1.0"/>
+    </material>
+    </visual>
+    <collision>
+    <origin xyz="6.9388939039072283776e-18 -5.5511151231257827021e-17 -0.032749999999999987454" rpy="-2.3917901934806809389e-16 -1.5707963267948947816 0" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/63755205_1.stl"/>
+    </geometry>
+    </collision>
+    <visual>
+    <origin xyz="0 -5.5511151231257827021e-17 -0.017750000000000005357" rpy="1.5707962596889331053 1.570796326794896558 0" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/63755205_3.stl"/>
+    </geometry>
+    <material name="63755205_3_material">
+    <color rgba="0.64705882352941179736 0.64705882352941179736 0.64705882352941179736 1.0"/>
+    </material>
+    </visual>
+    <collision>
+    <origin xyz="0 -5.5511151231257827021e-17 -0.017750000000000005357" rpy="1.5707962596889331053 1.570796326794896558 0" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/63755205_3.stl"/>
+    </geometry>
+    </collision>
+    <visual>
+    <origin xyz="0 -5.5511151231257827021e-17 -0.020150000000000004713" rpy="1.5707963939008602328 -1.570796326794896558 0" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/63755205_2.stl"/>
+    </geometry>
+    <material name="63755205_2_material">
+    <color rgba="0.5999999999999999778 0.5999999999999999778 0.5999999999999999778 1.0"/>
+    </material>
+    </visual>
+    <collision>
+    <origin xyz="0 -5.5511151231257827021e-17 -0.020150000000000004713" rpy="1.5707963939008602328 -1.570796326794896558 0" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/63755205_2.stl"/>
+    </geometry>
+    </collision>
+    <visual>
+    <origin xyz="6.9388939039072283776e-18 0 0.032749999999999980516" rpy="-3.141592653589793116 1.5707963267948947816 0" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/63755205_1.stl"/>
+    </geometry>
+    <material name="63755205_1_material">
+    <color rgba="0.91764705882352937127 0.91764705882352937127 0.91764705882352937127 1.0"/>
+    </material>
+    </visual>
+    <collision>
+    <origin xyz="6.9388939039072283776e-18 0 0.032749999999999980516" rpy="-3.141592653589793116 1.5707963267948947816 0" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/63755205_1.stl"/>
+    </geometry>
+    </collision>
+    <visual>
+    <origin xyz="0 0 0.017750000000000005357" rpy="-1.5707962972486579911 -1.5707963267948947816 0" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/63755205_3.stl"/>
+    </geometry>
+    <material name="63755205_3_material">
+    <color rgba="0.64705882352941179736 0.64705882352941179736 0.64705882352941179736 1.0"/>
+    </material>
+    </visual>
+    <collision>
+    <origin xyz="0 0 0.017750000000000005357" rpy="-1.5707962972486579911 -1.5707963267948947816 0" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/63755205_3.stl"/>
+    </geometry>
+    </collision>
+    <visual>
+    <origin xyz="0 0 0.020150000000000001243" rpy="-1.5707963563411353469 1.5707963267948947816 0" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/63755205_2.stl"/>
+    </geometry>
+    <material name="63755205_2_material">
+    <color rgba="0.5999999999999999778 0.5999999999999999778 0.5999999999999999778 1.0"/>
+    </material>
+    </visual>
+    <collision>
+    <origin xyz="0 0 0.020150000000000001243" rpy="-1.5707963563411353469 1.5707963267948947816 0" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/63755205_2.stl"/>
+    </geometry>
+    </collision>
+    <inertial>
+    <origin xyz="-1.3905153366695095013e-08 -2.308353284840540696e-17 -1.8807546362910670964e-18" rpy="0 0 0"/>
+    <mass value="0.043235391457957531025" />
+    <inertia ixx="2.117741363524789722e-05" ixy="-1.6494616852492486666e-16"  ixz="3.1518994266090702598e-22" iyy="2.1049951816356455783e-05" iyz="4.4464792326091756164e-11" izz="1.0143582146042517235e-06" />
+    </inertial>
+    </link>
+
+
+    <link name="forarm_rod">
+    <visual>
+    <origin xyz="2.7755575615628913511e-17 0.14999999999999996669 -0.0060000000000000053291" rpy="-1.570796326794896558 1.5123475901484657517e-33 -1.1256002290908234313e-17" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/forarm_rod.stl"/>
+    </geometry>
+    <material name="forarm_rod_material">
+    <color rgba="0.80000000000000004441 0.80000000000000004441 0.80000000000000004441 1.0"/>
+    </material>
+    </visual>
+    <collision>
+    <origin xyz="2.7755575615628913511e-17 0.14999999999999996669 -0.0060000000000000053291" rpy="-1.570796326794896558 1.5123475901484657517e-33 -1.1256002290908234313e-17" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/forarm_rod.stl"/>
+    </geometry>
+    </collision>
+    <inertial>
+    <origin xyz="2.0380347027211559199e-17 0.14999999999999993894 -0.0030000000000000052666" rpy="0 0 0"/>
+    <mass value="0.023080135190930266276" />
+    <inertia ixx="0.00017907526073076087715" ixy="-2.0111421264872935679e-21"  ixz="-7.2905738603365938692e-37" iyy="3.4754053482994265995e-07" iyz="5.1537658524598139645e-37" izz="0.00017928432045444521957" />
+    </inertial>
+    </link>
+
+
+    <link name="closing_arm1_1">
+    <inertial>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <mass value="1e-9" />
+    <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0" />
+    </inertial>
+    </link>
+    <joint name="closing_arm1_1_frame" type="fixed">
+    <origin xyz="-3.4694469519536141888e-18 0.29999999999999993339 0" rpy="-6.1343203009518076313e-33 1.5123475901484657517e-33 -1.1256002290908234313e-17" />
+    <parent link="forarm_rod" />
+    <child link="closing_arm1_1" />
+    <axis xyz="0 0 0"/>
+    </joint>
+
+
+    <joint name="12_passive" type="revolute">
+    <origin xyz="-1.5959455978986625269e-16 0.0030000000000003912426 0.032749999999999980516" rpy="1.570796326794896558 -1.3312356219938219493 3.1415926535897855665" />
+    <parent link="connecting_element" />
+    <child link="forarm_rod" />
+    <axis xyz="0 0 1"/>
+    <limit effort="1" velocity="20" lower="-0.52359877559829881566" upper="0.52359877559829881566"/>
+    <joint_properties friction="0.0"/>
+    </joint>
+
+
+    <link name="forarm_rod_2">
+    <visual>
+    <origin xyz="2.7755575615628913511e-17 -0.14999999999999999445 -0.0060000000000000608402" rpy="-1.570796326794896558 -9.2693912206016785975e-33 -1.2425741953250421395e-17" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/forarm_rod.stl"/>
+    </geometry>
+    <material name="forarm_rod_material">
+    <color rgba="0.80000000000000004441 0.80000000000000004441 0.80000000000000004441 1.0"/>
+    </material>
+    </visual>
+    <collision>
+    <origin xyz="2.7755575615628913511e-17 -0.14999999999999999445 -0.0060000000000000608402" rpy="-1.570796326794896558 -9.2693912206016785975e-33 -1.2425741953250421395e-17" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/forarm_rod.stl"/>
+    </geometry>
+    </collision>
+    <inertial>
+    <origin xyz="2.0380347027211559199e-17 -0.1500000000000000222 -0.0030000000000000603441" rpy="0 0 0"/>
+    <mass value="0.023080135190930266276" />
+    <inertia ixx="0.00017907526073076087715" ixy="-2.2216452063887184482e-21"  ixz="1.4978520173524902752e-36" iyy="3.4754053482994265995e-07" iyz="9.0275335856432666223e-37" izz="0.00017928432045444521957" />
+    </inertial>
+    </link>
+
+
+    <link name="connecting_element_2">
+    <visual>
+    <origin xyz="0.032749999999999591938 0 0.0030000000000000581757" rpy="1.570796326794896558 -6.915229977385943091e-22 -1.5707963267948974462" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/connecting_element.stl"/>
+    </geometry>
+    <material name="connecting_element_material">
+    <color rgba="0.5999999999999999778 0.5999999999999999778 0.5999999999999999778 1.0"/>
+    </material>
+    </visual>
+    <collision>
+    <origin xyz="0.032749999999999591938 0 0.0030000000000000581757" rpy="1.570796326794896558 -6.915229977385943091e-22 -1.5707963267948974462" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/connecting_element.stl"/>
+    </geometry>
+    </collision>
+    <visual>
+    <origin xyz="0 0 0.0030000000000000026645" rpy="-1.570796326794896558 3.9285558036016831504e-33 1.1520867648751419137e-31" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/63755205_1.stl"/>
+    </geometry>
+    <material name="63755205_1_material">
+    <color rgba="0.91764705882352937127 0.91764705882352937127 0.91764705882352937127 1.0"/>
+    </material>
+    </visual>
+    <collision>
+    <origin xyz="0 0 0.0030000000000000026645" rpy="-1.570796326794896558 3.9285558036016831504e-33 1.1520867648751419137e-31" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/63755205_1.stl"/>
+    </geometry>
+    </collision>
+    <visual>
+    <origin xyz="0.014999999999999943934 5.5511151231257827021e-17 0.0029999999999999471534" rpy="8.0134857772396222189e-09 -4.6924223910221446444e-26 -3.141592653589793116" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/63755205_3.stl"/>
+    </geometry>
+    <material name="63755205_3_material">
+    <color rgba="0.64705882352941179736 0.64705882352941179736 0.64705882352941179736 1.0"/>
+    </material>
+    </visual>
+    <collision>
+    <origin xyz="0.014999999999999943934 5.5511151231257827021e-17 0.0029999999999999471534" rpy="8.0134857772396222189e-09 -4.6924223910221446444e-26 -3.141592653589793116" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/63755205_3.stl"/>
+    </geometry>
+    </collision>
+    <visual>
+    <origin xyz="0.01259999999999999315 0 0.0030000000000000026645" rpy="-8.0134857772396222189e-09 4.6924223910221446444e-26 8.7101764804050194589e-28" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/63755205_2.stl"/>
+    </geometry>
+    <material name="63755205_2_material">
+    <color rgba="0.5999999999999999778 0.5999999999999999778 0.5999999999999999778 1.0"/>
+    </material>
+    </visual>
+    <collision>
+    <origin xyz="0.01259999999999999315 0 0.0030000000000000026645" rpy="-8.0134857772396222189e-09 4.6924223910221446444e-26 8.7101764804050194589e-28" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/63755205_2.stl"/>
+    </geometry>
+    </collision>
+    <visual>
+    <origin xyz="0.065499999999998892442 0 0.0030000000000000581757" rpy="1.570796326794896558 3.0701093824491574819e-23 -3.141592653589793116" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/63755205_1.stl"/>
+    </geometry>
+    <material name="63755205_1_material">
+    <color rgba="0.91764705882352937127 0.91764705882352937127 0.91764705882352937127 1.0"/>
+    </material>
+    </visual>
+    <collision>
+    <origin xyz="0.065499999999998892442 0 0.0030000000000000581757" rpy="1.570796326794896558 3.0701093824491574819e-23 -3.141592653589793116" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/63755205_1.stl"/>
+    </geometry>
+    </collision>
+    <visual>
+    <origin xyz="0.050499999999999233002 -1.1102230246251565404e-16 0.0030000000000001136868" rpy="3.141592645576306353 -3.1385939055972314215e-23 2.4767203673916650163e-17" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/63755205_3.stl"/>
+    </geometry>
+    <material name="63755205_3_material">
+    <color rgba="0.64705882352941179736 0.64705882352941179736 0.64705882352941179736 1.0"/>
+    </material>
+    </visual>
+    <collision>
+    <origin xyz="0.050499999999999233002 -1.1102230246251565404e-16 0.0030000000000001136868" rpy="3.141592645576306353 -3.1385939055972314215e-23 2.4767203673916650163e-17" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/63755205_3.stl"/>
+    </geometry>
+    </collision>
+    <visual>
+    <origin xyz="0.052899999999999176847 -5.5511151231257827021e-17 0.0030000000000001136868" rpy="-3.141592645576306353 3.1385939055972314215e-23 -3.141592653589793116" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/63755205_2.stl"/>
+    </geometry>
+    <material name="63755205_2_material">
+    <color rgba="0.5999999999999999778 0.5999999999999999778 0.5999999999999999778 1.0"/>
+    </material>
+    </visual>
+    <collision>
+    <origin xyz="0.052899999999999176847 -5.5511151231257827021e-17 0.0030000000000001136868" rpy="-3.141592645576306353 3.1385939055972314215e-23 -3.141592653589793116" />
+    <geometry>
+    <mesh filename="file://$(find delta_robot_description)/meshes/delta_robot/63755205_2.stl"/>
+    </geometry>
+    </collision>
+    <inertial>
+    <origin xyz="0.032749999999999550304 1.3905153363353280375e-08 0.0030000000000000425632" rpy="0 0 0"/>
+    <mass value="0.043235391457957531025" />
+    <inertia ixx="1.0143582146042301241e-06" ixy="7.2029734615800834062e-21"  ixz="-4.446479236374541185e-11" iyy="2.1177413635247148443e-05" iyz="2.7351463048027148428e-17" izz="2.1049951816355798486e-05" />
+    </inertial>
+    </link>
+
+
+    <link name="closing_arm1_2">
+    <inertial>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <mass value="1e-9" />
+    <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0" />
+    </inertial>
+    </link>
+    <joint name="closing_arm1_2_frame" type="fixed">
+    <origin xyz="0.065499999999998892442 0 1.1102230246251565404e-16" rpy="3.141592653589793116 -3.0701093824491574819e-23 2.4767203673916650163e-17" />
+    <parent link="connecting_element_2" />
+    <child link="closing_arm1_2" />
+    <axis xyz="0 0 0"/>
+    </joint>
+
+
+    <joint name="14_passive" type="revolute">
+    <origin xyz="-1.3877787807814456755e-17 -0.29999999999999993339 5.5511151231257827021e-17" rpy="-3.141592653589793116 -3.3246881643796303939e-19 -2.9020319487887582532" />
+    <parent link="forarm_rod_2" />
+    <child link="connecting_element_2" />
+    <axis xyz="0 0 1"/>
+    <limit effort="1" velocity="20" lower="-0.52359877559829881566" upper="0.52359877559829881566"/>
+    <joint_properties friction="0.0"/>
+    </joint>
+
+
+    <joint name="13_passive" type="revolute">
+    <origin xyz="-1.6653345369377348106e-16 0.0030000000000002802203 -0.032749999999999966638" rpy="-1.570796326794896558 1.3312356219938281665 -7.7545827997474715894e-15" />
+    <parent link="connecting_element" />
+    <child link="forarm_rod_2" />
+    <axis xyz="0 0 1"/>
+    <limit effort="1" velocity="20" lower="-0.52359877559829881566" upper="0.52359877559829881566"/>
+    <joint_properties friction="0.0"/>
+    </joint>
+
+
+    <joint name="11_wheel" type="continuous">
+    <origin xyz="-0.2000000000000002609 -2.0122792321330962295e-16 -0.015749999999999979294" rpy="-1.8262551998394623635e-15 2.3272302527077074766e-16 -1.5627224950883411569" />
+    <parent link="bicep_rod" />
+    <child link="connecting_element" />
+    <axis xyz="0 0 1"/>
+    <limit effort="1" velocity="20" />
+    <joint_properties friction="0.0"/>
+    </joint>
+
+
+    <joint name="motor_1" type="revolute">
+    <origin xyz="0.015572484711309449862 0.10059761139126591201 0.048749999999999987788" rpy="-1.57079632679489678 -0.0080738317065514441512 -1.5707963267948947816" />
+    <parent link="base_link" />
+    <child link="bicep_rod" />
+    <axis xyz="0 0 1"/>
+    <limit effort="1" velocity="20" lower="-0.52359877559829881566" upper="1.570796326794896558"/>
+    <joint_properties friction="0.0"/>
+    </joint>
+
+
+</robot>
