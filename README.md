@@ -16,7 +16,8 @@ Nachfolgend ist die Projektarbeit von Jan Sopejstal, Thomas Tasler und Nick Mül
 ---
 
 ## 1. Projektbeschreibung / Ziel des Projektes
-Für die Steuerung eines mobilen Robotes soll eine Delta-Kinematik aufgebaut werden. Durch eine geeignete Auswahl an Motoren und Ansteuerung soll die Kinematik einen vorgegebenen Zielpunkt anfahren können. Darüber hinaus, soll die Kinematik auch durch Interaktion in eine Richtung von Hand bewegt werden und bei eine einem Loslassen zurück in die Ursprungsposition fahren. Notwendig ist hierfür eine dynamische Regelung.
+Für die Steuerung eines mobilen Robotes soll eine Delta-Kinematik aufgebaut werden. Durch eine geeignete Auswahl an Motoren und Ansteuerung soll die Kinematik einen vorgegebenen Zielpunkt anfahren können. Darüber hinaus, soll die Kinematik auch durch Interaktion in eine Richtung von Hand bewegt werden und bei eine einem Loslassen zurück in die Ursprungsposition fahren. Notwendig ist hierfür eine dynamische Regelung.<br>
+Eine Video, das den gesamten Projektverlauf dokumentiert, ist unter folgendem Link zu finden: https://www.youtube.com/watch?v=dIm20Sjufmg&ab_channel=ThomasT .
 
 ## 2. Komponenten des Delta-Pickers
 Der Delta-Roboter besteht grundlegend aus einer [Grundplatte](/images/base.png), [drei Baugleichen Armen](/images/arm.png) sowie einer [Endeffektorplatte](/images/endeffektor.png). An der [Grundplatte](/images/base.png) werden zudem die Motorhalterungen sowie ein Gehäuse montiert. Das Gehäuse dient zur Befestigung von Bauteilen, welche für die Ansteuerung der Motoren erforderlich sind. Nachfolgend ist der Gesamtaufbau dargestellt.
