@@ -1,6 +1,6 @@
-# Aufbau einer Compliant-Delta-Picker-Kinematik für eine intuitive Eingabe eines Mobilen Roboters
+# Aufbau einer Compliant-Delta-Kinematik für die intuitive Interaktion mit einem Mobilen Roboter
 
-Nachfolgend ist die Projektarbeit von Jan Sopejstal, Thomas Tasler und Nick Müller beschrieben. Die Arbeit wurde im Wintersemester 24/25 an der technischen Hochschule Nürnberg durchgeführt und von Herrn Prof. Dr. rer. nat. Christian Pfitzner betreut.
+Nachfolgend ist die Projektarbeit von Jan Sopejstal, Thomas Tasler und Nick Müller beschrieben. Die Arbeit wurde im Wintersemester 24/25 an der Technischen Hochschule Nürnberg Georg Simon Ohm durchgeführt und von Herrn Prof. Dr. rer. nat. Christian Pfitzner betreut.
 
 ## Inhaltsverzeichnis
 
@@ -23,7 +23,7 @@ Der Delta-Roboter besteht grundlegend aus einer [Grundplatte](/images/base.png),
 
 ![Delta_Roboter](/images/delta_robot.png)
 
-Die nicht zugekauften Bauteile des Delta Roboters sind als [stl Datein](/stl/) abgelegt. In der folgenden Tabelle sind die für die Montage erfolgerlichen Komponenten aufgelistet. Darin enhalten sind sowohl die Zukaufkaufteile als auch die notwendige Anzahl der jeweiligen stl-Datei.
+Die nicht zugekauften Bauteile des Delta Roboters sind als [stl Dateien](/stl/) abgelegt. In der folgenden Tabelle sind die für die Montage erfolgerlichen Komponenten aufgelistet. Darin enhalten sind sowohl die Zukaufkaufteile als auch die notwendige Anzahl der jeweiligen stl-Datei.
 
 |**Bauteil - Zukauf**|**Stückzahl**|
 |-----------------|:------------------:|
@@ -38,6 +38,8 @@ Die nicht zugekauften Bauteile des Delta Roboters sind als [stl Datein](/stl/) a
 |Senkschraube mit Innensechsrund ISO 14581 M3 x 10|24|
 |Sechskantmuttern DIN 934 M3|24|
 |M3 Schmelzgewindeeinsatz|15|
+|DYNAMIXEL Kabel X4P 300mm|3|
+|DYNAMIXEL Kabel X4P 100mm|1|
 |||
 |**Bauteil - nicht Zukauf**|**Stückzahl**|
 |[base housing](/stl/base_housing.stl)|1|
@@ -48,7 +50,7 @@ Die nicht zugekauften Bauteile des Delta Roboters sind als [stl Datein](/stl/) a
 |[forarm rod divided 2](/stl/forarm_rod_divided_2.stl)|6|
 |[motor mount](/stl/motor_mount.stl)|3|
 
-**Kabel ergänzen**
+
 
 ## 3. Auslegung der Motoren
 
@@ -91,11 +93,11 @@ ros2 run delta_robot commot_node
 **Hinweis:** <br> Erst das Starten der COMMOT Node setzt den Torque_enable der Motoren auf 1 (Bestromung der Motoren). **=> Arme fallen herunter wenn COMMOT Node gestoppt wird!!**
 
 ### 4.2 Auswählbare Modi
-Im Rahmen dieses Projektes soll der Delta-Roboter über zwei Modis verfügen. Erstens einen Modus zur Punktnavigation, d.h. der Anwender gibt eine Position des Endeffektors im Arbeitsraum vor. Durch Berechnung der inversen Delta-Kinematik können die erforderlichen Motorwinkel ermittelt und mitteles eines Regelkreises eingestellt werden. 
+Im Rahmen dieses Projektes soll der Delta-Roboter über zwei Modi verfügen. Erstens einen Modus zur Punktnavigation, d.h. der Anwender gibt eine Position des Endeffektors im Arbeitsraum vor. Durch Berechnung der inversen Delta-Kinematik können die erforderlichen Motorwinkel ermittelt und mitteles eines Regelkreises eingestellt werden. 
 
 Des Weiteren soll ein Compliant-Modus implementiert werden. Der Endeffektor soll durch den Anwender ausgelenkt werden können und beim Loslassen wieder in den Ursprung zurückfahren. Wenn der Effektor zu einem gewissen Grad aus der Mitte gelenkt ist, soll diese Information an den Mobilen Roboter weitergeleitet werden. Dieser soll als Reaktion hierauf sich - und dadurch auch das Zentrum der Delta-Grundplatte- wieder unter den Endeffektor bewegen. 
 
-Zwischen den zwei Modi kann mit dem Nachrichten-Typ *OpMod* hin-und hergeschaltet werden. Dieser Nachrichten-Typ ist selbst definiert und im package delta_robot_interfaces zu finden. Im Folgenden werden beide Modi und deren Struktur in ROS2 anhand von Bildern vorgestellt. 
+Zwischen den zwei Modi kann mit dem Nachrichten-Typ *OpMod* hin-und hergeschaltet werden. Dieser Nachrichten-Typ ist selbst definiert und im package delta_robot_interfaces [delta_robot_interfaces](/src/delta_robot_interfaces/msg/OpMod.msg)zu finden. Im Folgenden werden beide Modi und deren Struktur in ROS2 anhand von Bildern vorgestellt. 
 
 #### 4.2.1 Punktnavigation (mode: 0)
 Für die Aktivierung des Punktnavigationsmodus muss (nach Start der 2 Nodes) folgende Nachricht publiziert werden, wobei an den ... Stellen die gewünschte Endeffektorposition anzugeben ist:
@@ -123,13 +125,13 @@ Die Realisierung eines Roboters mit nachgiebigen Verhaltens (engl. "compliant be
 
 Der Ansatz, der hierbei verfolgt wurde, sieht eine adaptive Änderung des P-Gains in Abhängigkeit der individuellen Positions-Regeldifferenz der 3 Motoren vor. Dafür wird zunächst feste Zielpositionen für alle 3 Motoren festgelegt, die zu Endeffektorposition von (0|0|300) führen.<br> 
 Eine Änderung des Motor-P-Gains ist gleichbedeutend mit der wahrnehmbaren Steifigkeit des Motors, wenn dieser manuell aus seiner Zielposition ausgelenkt wird. Durch das adaptive Ändern des P-Gains lässt sich so das Moment des Motors in Abhängigkeit dem radialen Weg indirekt beeinflussen. <br>
-Für diese Abhängigkeit wurden verschiedene Formen getestet, wie in der Abbildung unten zu sehen ist. Die aktuell im Code verwendte Abhänigikeit ist die der grünen Geraden. Diese Abhängigkeit ist entpricht auch der Intuition, da das oben beschriebne Verhalten sehr an eine Federkennlinie erinnern lässt. Als Optimierung der Geraden ist die orangene Kurve aufzufassen. Diese besteht aus der Überlagerung einer Geraden und einer e-Funktion. Die Idee hinter dieser Kombination ist, das P-Gain an den Grenzen des zulässigen Arbeitsbereichs so hoch zu setzen, dass jenes den Arbeitsbreich indirekt und v.a. weicher als eine reine if-Bedingung begrenzt. Die Parameter dieser Funktion benötigen allerdings noch Anpassung. 
+Für diese Abhängigkeit wurden verschiedene Formen getestet, wie in der Abbildung unten zu sehen ist. Die aktuell im Code verwendte Abhänigigkeit ist die der grünen Geraden. Diese Abhängigkeit entpricht auch der Intuition, da das oben beschriebne Verhalten sehr an eine Federkennlinie erinnern lässt. Als Optimierung der Geraden ist die orangene Kurve aufzufassen. Diese besteht aus der Überlagerung einer Geraden und einer e-Funktion. Die Idee hinter dieser Kombination ist, das P-Gain an den Grenzen des zulässigen Arbeitsbereichs so hoch zu setzen, dass jenes den Arbeitsbreich indirekt und v.a. weicher als eine reine if-Bedingung begrenzt. Die Parameter dieser Funktion benötigen allerdings noch Anpassung. 
 
 [![adapKoeff](/images/adaptiveGain.png)](/images/adaptiveGain.pn)
 
 **Disclaimer:** <br> 
-Aktuell ist die adaptive Regleranpassung im Code auskommentiert. Die Funktionalität des Codes ist zwar gegeben, allerdings ist aktuell die Zuverlässigkeit im langfristigen Betrieb noch nicht gesichert. Details hierzu finden sich in den Kommentaren in der COMMOT Node (Zeilen 215-218).<br> 
-Um die Zuverlässigkeit zu gewährleisten ist aktuell ein konstantes P-Gain implementiert. Dies sorgt zwar für ein generell sehr weiches Verhalten und eine gute Zentrierung in den Ursprung bzgl. der x-y-Ebene, jedoch gleichzeitig auch für eine große Ungenauigkeit bzgl. der Z-Koordinate. Diese Abweichung existiert auch mit adaptiver Regleranpassung aber in geminderter Form.
+Aktuell ist die adaptive Regleranpassung im Code auskommentiert. Die Funktionalität des Codes ist zwar gegeben, allerdings ist aktuell die Zuverlässigkeit im langfristigen Betrieb noch nicht gesichert. Details hierzu finden sich in den Kommentaren in der [commot_node.cpp](/src/delta_robot/src/commot_node.cpp) (Zeilen 215-218).<br> 
+Um die Zuverlässigkeit zu gewährleisten ist aktuell ein konstantes P-Gain implementiert. Dies sorgt zwar für ein generell sehr weiches Verhalten und eine gute Zentrierung in den Ursprung bzgl. der x-y-Ebene, jedoch gleichzeitig auch für eine große Ungenauigkeit bzgl. der Z-Koordinate. Diese Abweichung existiert auch mit adaptiver Regleranpassung aber in wesentlich geminderter Form.
 
 **ROS2 Struktur des Compliant-Modus:**<br>
 In der Abbildung unterhalb des Absatzes ist der Datenfluss für den Compliant-Mode dargestellt. Wie bereits beim Punktnavigationsmodus erwähnt, wird auch hier der Start des Modus über das Publizieren einer *OpMod*-Nachricht im Terminal (T) in­i­ti­ie­rt, wobei mit dem Zusatz -r eine Publikationsfrequenz eingestellt werden muss. Mit dieser Frequenz wird einerseits die aktuelle Position des Endeffektors kontinuierlich berechnet und andererseits die aktuellen P-Gains für den Fall der adaptiven Regelparameter-Veränderung.<br> 
@@ -147,13 +149,12 @@ source install/setup.bash
 ros2 topic pub -r 2 OpMod delta_robot_interfaces/OpMod "{mode: 1}"
 ```
 **Hinweis:** <br>
-Die Regelparameter lassen sich in [commot_node.cpp](/src/delta_robot/src
-/commot_node.cpp) in Zeile 216 (P-Gain) und 225 (D-Gain) anpassen.<br>
-Die Frequenz von 2 Hz dient, wie bereits erwähnt für die kontinuierliche Berechnung der Effektorposition und nicht zum Publizieren der Twist Nachrichten. Um die Twist-Frequenz zu verstellen, muss die Periodendauer des Timers in der OPMOD Node (Zeile 50) angepasst werden.
+Die Regelparameter lassen sich in [commot_node.cpp](/src/delta_robot/src/commot_node.cpp) in Zeile 216 (P-Gain) und 225 (D-Gain) anpassen.<br>
+Die Frequenz von 2 Hz dient, wie bereits erwähnt für die kontinuierliche Berechnung der Effektorposition und nicht zum Publizieren der Twist Nachrichten. Um die Twist-Frequenz zu verstellen, muss die Periodendauer des Timers in der OPMOD Node [opmod_node.cpp](/src/delta_robot/src/opmod_node.cpp) (Zeile 50) angepasst werden.
 
 ## 5. Simulator für Delta-Roboter
 
-Außerdem wurde während der Projektarbeit ein Simulator für den Delta-Roboter aufgebaut. Dafür wurde zu Beginn Gazebo genutzt. Da dies nun nichtmehr unterstützt wird wurde auf die neue Umgebung Iginition gewechselt. ALle notwendigen Datein sind im "delta_robot_ros2" Package abgelegt. Außerdem müssen die Schritte aus Abschnitt 4.1 durchgeführt werden, um die simulation zu starten.
+Außerdem wurde während der Projektarbeit ein Simulator für den Delta-Roboter aufgebaut. Dafür wurde zu Beginn Gazebo genutzt. Da dies nun nichtmehr unterstützt wird, wurde auf die neue Umgebung Iginition gewechselt. ALle notwendigen Datein sind im [delta_robot_ros2](/src/delta_robot_ros2/) Package abgelegt. Außerdem müssen die Schritte aus Abschnitt 4.1 durchgeführt werden, um die Simulation zu starten.
 
 Für das Starten der Iginition Umgebung ist folgender Befehl auszuführen
 ```
@@ -165,4 +166,5 @@ Für das Starten der Gazebo Umgebung ist folgender Befehl auszuführen
 ros2 launch delta_robot_gazebo delta_robot_bringup_classic_gazebo.launch.py
 ```
 
-Anmerkung: Der hier aufgebaute Simulator stellt nur ein Grundgerüst dar. Insbesondere hinsichtlich der closed-loop-Kinematik muss der Simulator noch ausgearbeitet werden. Zum Zeitpunkt der Projektarbeit wurde hierfür noch keine passende Lösung gefunden. Außerdem ist auch noch ein Skript zu schreiben, mit welchem die Arme bewegt werden können. Derzeit können die Arme des Delta Roboters nur direkt innerhalb der Simulationsumgebung über den "Joint position Controller" gesteuert werden.
+**Anmerkung:** <br>
+Der hier aufgebaute Simulator stellt nur ein Grundgerüst dar. Insbesondere hinsichtlich der closed-loop-Kinematik muss der Simulator noch ausgearbeitet werden. Zum Zeitpunkt der Projektarbeit wurde hierfür noch keine passende Lösung gefunden. Außerdem ist auch noch ein Skript zu schreiben, mit welchem die Arme bewegt werden können. Derzeit können die Arme des Delta Roboters nur direkt innerhalb der Simulationsumgebung über den "Joint position Controller" gesteuert werden.
